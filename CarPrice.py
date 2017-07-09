@@ -78,6 +78,7 @@ def createModelsList(chatID):
     string = ""
     #TODO Create text for send Models List
     return string
+def getCurrent(chat_id):
 
 
 def nextMarkUp(nextMark, chat_id):
@@ -87,44 +88,43 @@ def nextMarkUp(nextMark, chat_id):
 
     if nextMark in {"/start" , "/MainMenu", "بازگشت به صفحه اصلی"}:
         markup = markupStart
-        setCurrent(chat_id) = "صفحه اصلی"
+        setCurrent(chat_id, 'صفحه اصلی')
         update_Order(chat_id, "reset")
         return markup, None
     if current1 in {"/start", "صفحه اصلی"}:
         update_Order(chat_id, "reset")
         if nextMark == "جستجو بر اساس مشخصات":
-            markup = markupBrandChar
-            setCurrent(chat_id) = "BrandChar"
-            return markup, "BrandChar"
+            markup = markupNationality
+            setCurrent(chat_id ,"nationality")
+            return markup, "nationality"
         if nextMark == "جستجو بر اساس قیمت":
             markup = markupPrice
-            setCurrent(chat_id) = "قیمت"
+            setCurrent(chat_id,"قیمت")
             return markup, "قیمت"
     if current1 == "قیمت":
         if nextMark in {"زیر 20 میلیون","20 تا 50 میلیون", "50 تا 100 میلیون",
                         "100 تا 150 میلیون","بالای 150 میلیون"}:
             markup = markupStart
-            setCurrent(chat_id) = "صفحه اصلی"
+            setCurrent(chat_id, 'صفحه اصلی')
             return markup, nextMark
         elif nextMark == "بازگشت به صفحه اصلی":
             markup = markupStart
-            setCurrent(chat_id) = "صفحه اصلی"
+            setCurrent(chat_id, 'صفحه اصلی')
             update_Order(chat_id, "reset")
             return markup, None
     if current1 == "nationality":
-        if nextMark in {"از الف تا ب" , "از پ تا خ", "از د تا س", "از ش تا گ",
-                        "از ل تا ی"}:
+        if nextMark in {"I" , "F"}:
             update_Brands(chat_id, nextMark)
-            markup = markupBrandKeyboard
-            setCurrent(chat_id) = "BrandList"
+            markup = markupNationality
+            setCurrent(chat_id ,"BrandList")
             return markup, "BrandList"
         elif nextMark == "بازگشت به صفحه اصلی":
             markup = markupStart
-            setCurrent(chat_id) = "صفحه اصلی"
+            setCurrent(chat_id, 'صفحه اصلی')
             update_Order(chat_id, "reset")
             return markup, None
     if current1 == "BrandList":
-        if nextMark in Brands[chat_id]:
+        if hasBrand(chat_id, nextMark):
             update_Order(chat_id, nextMark)
             update_Models(chat_id, nextMark)
             markup = markupModelKeyboard
@@ -133,16 +133,16 @@ def nextMarkUp(nextMark, chat_id):
         elif nextMark == "بازگشت به صفحه اصلی":
             markup = markupStart
             update_Order(chat_id, "reset")
-            setCurrent(chat_id) = "صفحه اصلی"
+            setCurrent(chat_id, 'صفحه اصلی')
             return markup, None
     if current1 == "ModelList":
-        if nextMark in Models[chat_id]:
+        if hasModel(chat_id, nextMark):
             update_Order(chat_id,nextMark)
-            setCurrent(chat_id) = "Year"
+            setCurrent(chat_id , "Year")
             markup = markupYear
             return markup, "Year"
         elif nextMark == "بازگشت به صفحه اصلی":
-            setCurrent(chat_id) = "صفحه اصلی"
+            setCurrent(chat_id, 'صفحه اصلی')
             markup = markupStart
             update_Order(chat_id, "reset")
             return markup, None
@@ -151,23 +151,23 @@ def nextMarkUp(nextMark, chat_id):
                         "قبل از 1388 (2009)"}:
             update_Order(chat_id, nextMark)
             markup = markupDrived
-            setCurrent(chat_id) = "Drived"
+            setCurrent(chat_id , "Drived")
             return markup, "Drived"
         elif nextMark == "بازگشت به صفحه اصلی":
             markup = markupStart
-            setCurrent(chat_id) = "صفحه اصلی"
-            update_Order(chat_id,nextMark)
+            setCurrent(chat_id, 'صفحه اصلی')
+            update_Order(chat_id,'reset')
             return markup, None
     if current1 == "Drived":
         if nextMark in {"زیر 2000", "2000 تا 10000", "10000 تا 50000", "50000 تا 80000", "80000 تا 120000",
                         "بالای 120000"}:
             markup = markupStart
             update_Order(chat_id, nextMark)
-            setCurrent(chat_id) = "صفحه اصلی"
+            setCurrent(chat_id, 'صفحه اصلی')
             return markup, "Data"
         elif nextMark == "بازگشت به صفحه اصلی":
             markup = markupStart
-            setCurrent(chat_id) = "صفحه اصلی"
+            setCurrent(chat_id, 'صفحه اصلی')
             update_Order(chat_id,"reset")
             return markup, None
 

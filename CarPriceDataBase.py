@@ -8,7 +8,9 @@ password = '137555'
 database = 'CarPriceNullatech'
 
 
-def printAllValues(conn):
+def printAllValues():
+    global hostname, username, password, database
+    conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
     cur = conn.cursor()
 
     cur.execute("SELECT * FROM CarTable")
@@ -23,7 +25,9 @@ def printAllValues(conn):
              "\nURL link: " + URL+"\n")
 
 
-def addElement(conn, Brand, Model, Price, Drived, MadeYear, FuelType, state, Color, Gear, URL, nationality):
+def addElement(Brand, Model, Price, Drived, MadeYear, FuelType, state, Color, Gear, URL, nationality):
+    global hostname, username, password, database
+    conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
     cur = conn.cursor()
     sql = "Insert into CarTable (Brand, Model, Price, Drived, MadeYear, FuelType, state, Color, Gear, URL, nationality)"+\
           "\nvalues (\'" + Brand + "\',\'"+Model + "\',"+ Price +"," + Drived+ "," + MadeYear + ",\'"+FuelType + "\'"+\
@@ -31,7 +35,9 @@ def addElement(conn, Brand, Model, Price, Drived, MadeYear, FuelType, state, Col
     cur.execute(sql)
     conn.commit()
 
-def getBrands(conn):
+def getBrands():
+    global hostname, username, password, database
+    conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
     cur = conn.cursor()
     cur.execute("Select Brand from CarTable")
     Brands = []
@@ -41,7 +47,9 @@ def getBrands(conn):
     return Brands
 
 
-def getModels(conn, brand):
+def getModels(brand):
+    global hostname, username, password, database
+    conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
     cur = conn.cursor()
     sql = "Select Model from CarTable " + "Where Brand = " +"\'" +  brand + "\'"
     cur.execute(sql)
@@ -51,7 +59,9 @@ def getModels(conn, brand):
             Models.append(clearName(str(model)))
     return Models
 
-def searchByPrice(conn, minPrice, maxPrice):
+def searchByPrice(minPrice, maxPrice):
+    global hostname, username, password, database
+    conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
     #if maxPrice is -1, it means that maxPrice doesn't matter.
     cur = conn.cursor()
     if maxPrice != -1:
