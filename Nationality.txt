@@ -1,0 +1,3 @@
+nationality Column:
+'I'  means That Brand has been made in Iran.
+'F' means, That Brand has been made out of Iran.

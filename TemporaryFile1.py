@@ -1,0 +1,2 @@
+x = 'ali%'
+print(x)
