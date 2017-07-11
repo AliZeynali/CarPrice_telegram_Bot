@@ -59,20 +59,20 @@ def getModels(brand):
             Models.append(clearName(str(model)))
     return Models
 
-def searchByPrice(minPrice, maxPrice):
-    global hostname, username, password, database
-    conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
-    #if maxPrice is -1, it means that maxPrice doesn't matter.
-    cur = conn.cursor()
-    if maxPrice != -1:
-        sql = "Select * from CarTable "+ "Where Price between "+ minPrice +" AND " +  maxPrice
-    else:
-        sql = "Select * from CarTable " + "Where Price >= " +  minPrice
-    cur.execute(sql)
-    data = []
-    for Brand, Model, Price, Drived, MadeYear, FuelType, state, Color, Gear, URL, nationality in cur.fetchall():
-        data.append([Brand, Model, Price, Drived, MadeYear, FuelType, state, Color, Gear, URL, nationality])
-    return data
+# def searchByPrice(minPrice, maxPrice):
+#     global hostname, username, password, database
+#     conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
+#     #if maxPrice is -1, it means that maxPrice doesn't matter.
+#     cur = conn.cursor()
+#     if maxPrice != -1:
+#         sql = "Select * from CarTable "+ "Where Price between "+ minPrice +" AND " +  maxPrice
+#     else:
+#         sql = "Select * from CarTable " + "Where Price >= " +  minPrice
+#     cur.execute(sql)
+#     data = []
+#     for Brand, Model, Price, Drived, MadeYear, FuelType, state, Color, Gear, URL, nationality in cur.fetchall():
+#         data.append([Brand, Model, Price, Drived, MadeYear, FuelType, state, Color, Gear, URL, nationality])
+#     return data
 
 
 

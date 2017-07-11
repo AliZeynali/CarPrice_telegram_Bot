@@ -1,1 +1,1 @@
-﻿Select * from CarTable
+﻿select * from users
