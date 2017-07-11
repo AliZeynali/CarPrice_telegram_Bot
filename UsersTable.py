@@ -193,14 +193,15 @@ def giveData(chatID):
     for brand, model, price, drived, madeYear, fuelType, state, color, gear, URL, nationality in cur.fetchall():
         data.append([brand, model, price, drived, madeYear, fuelType, state, color, gear, URL, nationality])
     myConnection.close()
-    while cnt < 20:
+    for car in data:
+        if cnt >=13:
+            break
         cnt += 1
-        for car in data:
-            String += "برند: " + str(car[0]) + "\n" + "مدل: " + str(car[1]) + "\n" + "سال تولید: " + str(
-                car[4]) + "\n" + "قیمت: " + str(car[2]) + "\n" + "کارکرد: " + str(car[3]) + "\n" + "نوع سوخت مصرفی: " + str(
-                car[5]) + "\n" + "رنگ: " + str(
-                car[7]) + "\n" + "نوع گیربکس: " + str(car[8]) + "\n" + "استان: " + str(car[6]) + "\n" + str(
-                car[9]) + "\n" + 30 * "-" + "\n"
+        String += "برند: " + str(car[0]) + "\n" + "مدل: " + str(car[1]) + "\n" + "سال تولید: " + str(
+            car[4]) + "\n" + "قیمت: " + str(car[2]) + "\n" + "کارکرد: " + str(car[3]) + "\n" + "نوع سوخت مصرفی: " + str(
+            car[5]) + "\n" + "رنگ: " + str(
+            car[7]) + "\n" + "نوع گیربکس: " + str(car[8]) + "\n" + "استان: " + str(car[6]) + "\n" + str(
+            car[9]) + "\n" + 30 * "-" + "\n"
     if String == "خودرو هایی با مشخصات مورد نظر شما عبارت اند از:\n\n":
         return "خودرویی با مشخصات مورد نظر شما یافت نشد!" + "\n\n" + "بازگشت به صفحه اصلی: " + "/MainMenu" + "\n\n" + \
                "Nullatech.com"
@@ -237,14 +238,15 @@ def givePriceSearchData(type):
         data.append([brand, model, price, drived, madeYear, fuelType, state, color, gear, URL, nationality])
     myConnection.close()
     cnt = 0
-    while cnt < 20:
+    for car in data:
+        if cnt >=13:
+            break
         cnt += 1
-        for car in data:
-            String += "برند: " + str(car[0]) + "\n" + "مدل: " + str(car[1]) + "\n" + "سال تولید: " + str(
-                car[4]) + "\n" + "قیمت: " + str(car[2]) + "\n" + "کارکرد: " + str(car[3]) + "\n" + "نوع سوخت مصرفی: " + str(
-                car[5]) + "\n" + "رنگ: " + str(
-                car[7]) + "\n" + "نوع گیربکس: " + str(car[8]) + "\n" + "استان: " + str(car[6]) + "\n" + str(
-                car[9]) + "\n" + 30 * "-" + "\n"
+        String += "برند: " + str(car[0]) + "\n" + "مدل: " + str(car[1]) + "\n" + "سال تولید: " + str(
+            car[4]) + "\n" + "قیمت: " + str(car[2]) + "\n" + "کارکرد: " + str(car[3]) + "\n" + "نوع سوخت مصرفی: " + str(
+            car[5]) + "\n" + "رنگ: " + str(
+            car[7]) + "\n" + "نوع گیربکس: " + str(car[8]) + "\n" + "استان: " + str(car[6]) + "\n" + str(
+            car[9]) + "\n" + 30 * "-" + "\n"
     if String == "خودرو های در محدوده قیمت مورد نظر شما عبارت اند از:\n\n":
         return "خودرویی در محدوده قیمتی مورد نظر شما یافت نشد!" + "\n\n" + "بازگشت به صفحه اصلی: " + "/MainMenu" + "\n\n" + \
                "Nullatech.com"

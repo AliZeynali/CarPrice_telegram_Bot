@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f77b4797-2352-4e5e-8f1f-af2ae1ad9189" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CarPrice.py" afterPath="$PROJECT_DIR$/CarPrice.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TemporaryFile1.py" afterPath="$PROJECT_DIR$/TemporaryFile1.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/UsersTable.py" afterPath="$PROJECT_DIR$/UsersTable.py" />
     </list>
@@ -16,8 +14,8 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/CarPriceBot$DataBaseModel.coverage" NAME="DataBaseModel Coverage Results" MODIFIED="1499328363873" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/CarPriceBot$TemporaryFile1.coverage" NAME="TemporaryFile1 Coverage Results" MODIFIED="1499770317248" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/CarPriceBot$CarPrice.coverage" NAME="CarPrice Coverage Results" MODIFIED="1499770432985" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/CarPriceBot$TemporaryFile1.coverage" NAME="TemporaryFile1 Coverage Results" MODIFIED="1499771157142" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/CarPriceBot$CarPrice.coverage" NAME="CarPrice Coverage Results" MODIFIED="1499770872280" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/CarPriceBot$First.coverage" NAME="First Coverage Results" MODIFIED="1499349098294" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../2" />
     <SUITE FILE_PATH="coverage/CarPriceBot$UsersTable.coverage" NAME="UsersTable Coverage Results" MODIFIED="1499760638973" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
@@ -36,7 +34,7 @@
       <file leaf-file-name="CarPrice.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CarPrice.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2856">
+            <state relative-caret-position="2516">
               <caret line="205" column="0" lean-forward="false" selection-start-line="205" selection-start-column="0" selection-end-line="210" selection-end-column="18" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
@@ -49,14 +47,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TemporaryFile1.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TemporaryFile1.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/TemporaryFile1.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="29" lean-forward="false" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
-              <folding>
-                <element signature="e#0#15#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="51">
+              <caret line="3" column="18" lean-forward="false" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -64,7 +60,7 @@
       <file leaf-file-name="CarPriceDataBase.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CarPriceDataBase.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-430">
+            <state relative-caret-position="114">
               <caret line="10" column="21" lean-forward="false" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
@@ -110,11 +106,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UsersTable.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UsersTable.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UsersTable.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="203" column="6" lean-forward="true" selection-start-line="203" selection-start-column="6" selection-end-line="203" selection-end-column="6" />
+            <state relative-caret-position="113">
+              <caret line="242" column="13" lean-forward="true" selection-start-line="242" selection-start-column="13" selection-end-line="242" selection-end-column="13" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
                 <element signature="e#1504#1854#0" expanded="false" />
@@ -122,59 +118,60 @@
                 <element signature="e#2286#2632#0" expanded="false" />
                 <element signature="e#2673#3013#0" expanded="false" />
                 <element signature="e#3058#3402#0" expanded="false" />
-                <element signature="e#8083#9971#0" expanded="false" />
-                <element signature="e#10008#11039#0" expanded="false" />
-                <element signature="e#11076#12194#0" expanded="false" />
-                <marker date="1499770317174" expanded="true" signature="446:478" ph="Select Count... Users" />
-                <marker date="1499770317174" expanded="true" signature="446:499" ph="Select Count... Users" />
-                <marker date="1499770317174" expanded="true" signature="446:500" ph="Select Count... Users" />
-                <marker date="1499770317174" expanded="true" signature="610:634" ph="insert into Users... " />
-                <marker date="1499770317174" expanded="true" signature="610:635" ph="insert into Users... " />
-                <marker date="1499770317174" expanded="true" signature="610:636" ph="insert into Users... " />
-                <marker date="1499770317174" expanded="true" signature="610:637" ph="insert into Users... " />
-                <marker date="1499770317174" expanded="true" signature="610:672" ph="insert into Users... " />
-                <marker date="1499770317174" expanded="true" signature="610:673" ph="insert into Users... " />
-                <marker date="1499770317174" expanded="true" signature="610:678" ph="insert into Users... " />
-                <marker date="1499770317174" expanded="true" signature="610:696" ph="insert into Users... " />
-                <marker date="1499770317174" expanded="true" signature="610:730" ph="insert into Users... " />
-                <marker date="1499770317174" expanded="true" signature="868:915" ph="Select C fro... Users" />
-                <marker date="1499770317174" expanded="true" signature="1293:1372" ph="Update table... " />
-                <marker date="1499770317174" expanded="true" signature="1695:1724" ph="Update table... " />
-                <marker date="1499770317174" expanded="true" signature="1695:1744" ph="Update table... " />
-                <marker date="1499770317174" expanded="true" signature="1695:1765" ph="Update table... " />
-                <marker date="1499770317174" expanded="true" signature="1695:1766" ph="Update table... " />
-                <marker date="1499770317174" expanded="true" signature="2088:2155" ph="Update table... " />
-                <marker date="1499770317174" expanded="true" signature="2477:2544" ph="Update table... " />
-                <marker date="1499770317174" expanded="true" signature="2864:2888" ph="Update table... " />
-                <marker date="1499770317174" expanded="true" signature="2864:2905" ph="Update table... " />
-                <marker date="1499770317174" expanded="true" signature="2864:2925" ph="Update table... " />
-                <marker date="1499770317174" expanded="true" signature="3249:3275" ph="Update table... " />
-                <marker date="1499770317174" expanded="true" signature="3249:3314" ph="Update table... " />
-                <marker date="1499770317174" expanded="true" signature="3629:3676" ph="Select count... Users" />
-                <marker date="1499770317174" expanded="true" signature="3629:3679" ph="Select count... Users" />
-                <marker date="1499770317174" expanded="true" signature="3629:3694" ph="Select count... Users" />
-                <marker date="1499770317174" expanded="true" signature="4130:4170" ph="select brand... users" />
-                <marker date="1499770317174" expanded="true" signature="4276:4326" ph="Select count... CarTable" />
-                <marker date="1499770317174" expanded="true" signature="4276:4346" ph="Select count... Users" />
-                <marker date="1499770317174" expanded="true" signature="4276:4361" ph="Select count... Users" />
-                <marker date="1499770317174" expanded="true" signature="4276:4376" ph="Select count... Users" />
-                <marker date="1499770317174" expanded="true" signature="4872:4909" ph="Select * fro... users" />
-                <marker date="1499770317174" expanded="true" signature="6122:6161" ph="Select * fro... CarTable" />
-                <marker date="1499770317174" expanded="true" signature="6122:6196" ph="Select * fro... CarTable" />
-                <marker date="1499770317174" expanded="true" signature="6122:6510" ph="Select * fro... CarTable" />
-                <marker date="1499770317174" expanded="true" signature="6122:6536" ph="Select * fro... CarTable" />
-                <marker date="1499770317174" expanded="true" signature="6577:6895" ph="Select * fro... CarTable" />
-                <marker date="1499770317174" expanded="true" signature="6577:6921" ph="Select * fro... CarTable" />
-                <marker date="1499770317174" expanded="true" signature="8666:8736" ph="Select * fro... CarTable" />
-                <marker date="1499770317174" expanded="true" signature="8789:8836" ph="Select * fro... CarTable" />
-                <marker date="1499770317174" expanded="true" signature="10254:10301" ph="Select natio... users" />
-                <marker date="1499770317174" expanded="true" signature="10425:10474" ph="Select brand... CarTable" />
-                <marker date="1499770317174" expanded="true" signature="10425:10500" ph="Select brand... CarTable" />
-                <marker date="1499770317174" expanded="true" signature="11328:11382" ph="Select natio... users" />
-                <marker date="1499770317174" expanded="true" signature="11532:11632" ph="Select model... CarTable" />
-                <marker date="1499770317174" expanded="true" signature="12465:12519" ph="Select natio... users" />
-                <marker date="1499770317174" expanded="true" signature="12722:12822" ph="Select model... CarTable" />
-                <marker date="1499770317174" expanded="true" signature="13384:13387" ph="Select model... CarTable" />
+                <element signature="e#3438#3903#0" expanded="false" />
+                <element signature="e#3939#4585#0" expanded="false" />
+                <element signature="e#9998#11029#0" expanded="false" />
+                <element signature="e#11066#12184#0" expanded="false" />
+                <marker date="1499770872197" expanded="true" signature="446:478" ph="Select Count... Users" />
+                <marker date="1499770872197" expanded="true" signature="446:499" ph="Select Count... Users" />
+                <marker date="1499770872197" expanded="true" signature="446:500" ph="Select Count... Users" />
+                <marker date="1499770872197" expanded="true" signature="610:634" ph="insert into Users... " />
+                <marker date="1499770872197" expanded="true" signature="610:635" ph="insert into Users... " />
+                <marker date="1499770872197" expanded="true" signature="610:636" ph="insert into Users... " />
+                <marker date="1499770872197" expanded="true" signature="610:637" ph="insert into Users... " />
+                <marker date="1499770872197" expanded="true" signature="610:672" ph="insert into Users... " />
+                <marker date="1499770872197" expanded="true" signature="610:673" ph="insert into Users... " />
+                <marker date="1499770872197" expanded="true" signature="610:678" ph="insert into Users... " />
+                <marker date="1499770872197" expanded="true" signature="610:696" ph="insert into Users... " />
+                <marker date="1499770872197" expanded="true" signature="610:730" ph="insert into Users... " />
+                <marker date="1499770872197" expanded="true" signature="868:915" ph="Select C fro... Users" />
+                <marker date="1499770872197" expanded="true" signature="1293:1372" ph="Update table... " />
+                <marker date="1499770872197" expanded="true" signature="1695:1724" ph="Update table... " />
+                <marker date="1499770872197" expanded="true" signature="1695:1744" ph="Update table... " />
+                <marker date="1499770872197" expanded="true" signature="1695:1765" ph="Update table... " />
+                <marker date="1499770872197" expanded="true" signature="1695:1766" ph="Update table... " />
+                <marker date="1499770872197" expanded="true" signature="2088:2155" ph="Update table... " />
+                <marker date="1499770872197" expanded="true" signature="2477:2544" ph="Update table... " />
+                <marker date="1499770872197" expanded="true" signature="2864:2888" ph="Update table... " />
+                <marker date="1499770872197" expanded="true" signature="2864:2905" ph="Update table... " />
+                <marker date="1499770872197" expanded="true" signature="2864:2925" ph="Update table... " />
+                <marker date="1499770872197" expanded="true" signature="3249:3275" ph="Update table... " />
+                <marker date="1499770872197" expanded="true" signature="3249:3314" ph="Update table... " />
+                <marker date="1499770872197" expanded="true" signature="3629:3676" ph="Select count... Users" />
+                <marker date="1499770872197" expanded="true" signature="3629:3679" ph="Select count... Users" />
+                <marker date="1499770872197" expanded="true" signature="3629:3694" ph="Select count... Users" />
+                <marker date="1499770872197" expanded="true" signature="4130:4170" ph="select brand... users" />
+                <marker date="1499770872197" expanded="true" signature="4276:4326" ph="Select count... CarTable" />
+                <marker date="1499770872197" expanded="true" signature="4276:4346" ph="Select count... Users" />
+                <marker date="1499770872197" expanded="true" signature="4276:4361" ph="Select count... Users" />
+                <marker date="1499770872197" expanded="true" signature="4276:4376" ph="Select count... Users" />
+                <marker date="1499770872197" expanded="true" signature="4872:4909" ph="Select * fro... users" />
+                <marker date="1499770872197" expanded="true" signature="6122:6161" ph="Select * fro... CarTable" />
+                <marker date="1499770872197" expanded="true" signature="6122:6196" ph="Select * fro... CarTable" />
+                <marker date="1499770872197" expanded="true" signature="6122:6510" ph="Select * fro... CarTable" />
+                <marker date="1499770872197" expanded="true" signature="6122:6536" ph="Select * fro... CarTable" />
+                <marker date="1499770872197" expanded="true" signature="6577:6895" ph="Select * fro... CarTable" />
+                <marker date="1499770872197" expanded="true" signature="6577:6921" ph="Select * fro... CarTable" />
+                <marker date="1499770872197" expanded="true" signature="8661:8731" ph="Select * fro... CarTable" />
+                <marker date="1499770872197" expanded="true" signature="8784:8831" ph="Select * fro... CarTable" />
+                <marker date="1499770872197" expanded="true" signature="10244:10291" ph="Select natio... users" />
+                <marker date="1499770872197" expanded="true" signature="10415:10464" ph="Select brand... CarTable" />
+                <marker date="1499770872197" expanded="true" signature="10415:10490" ph="Select brand... CarTable" />
+                <marker date="1499770872197" expanded="true" signature="11318:11372" ph="Select natio... users" />
+                <marker date="1499770872197" expanded="true" signature="11522:11622" ph="Select model... CarTable" />
+                <marker date="1499770872197" expanded="true" signature="12455:12509" ph="Select natio... users" />
+                <marker date="1499770872197" expanded="true" signature="12712:12812" ph="Select model... CarTable" />
+                <marker date="1499770872197" expanded="true" signature="13374:13377" ph="Select model... CarTable" />
               </folding>
             </state>
           </provider>
@@ -216,8 +213,8 @@
       <find>repl</find>
       <find>p</find>
       <find>update_Orde</find>
-      <find>print</find>
       <find>update_Order</find>
+      <find>print</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -231,8 +228,8 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/CarPriceDataBase.py" />
         <option value="$PROJECT_DIR$/CarPrice.py" />
-        <option value="$PROJECT_DIR$/TemporaryFile1.py" />
         <option value="$PROJECT_DIR$/UsersTable.py" />
+        <option value="$PROJECT_DIR$/TemporaryFile1.py" />
       </list>
     </option>
   </component>
@@ -302,7 +299,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.CarPrice">
+  <component name="RunManager" selected="Python.TemporaryFile1">
     <configuration default="false" name="First" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -555,8 +552,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.CarPrice" />
-        <item index="1" class="java.lang.String" itemvalue="Python.TemporaryFile1" />
+        <item index="0" class="java.lang.String" itemvalue="Python.TemporaryFile1" />
+        <item index="1" class="java.lang.String" itemvalue="Python.CarPrice" />
         <item index="2" class="java.lang.String" itemvalue="Python.UsersTable" />
         <item index="3" class="java.lang.String" itemvalue="Python.First" />
         <item index="4" class="java.lang.String" itemvalue="Python.DataBaseModel" />
@@ -590,7 +587,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1376" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991454" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991454" sideWeight="0.50303954" order="7" side_tool="true" content_ui="tabs" />
@@ -631,7 +627,7 @@
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="6" />
+      <option name="time" value="7" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -692,16 +688,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TemporaryFile1.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="29" lean-forward="false" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../2/First.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -712,9 +698,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/site-packages/telepot/api.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="111">
+          <caret line="111" column="0" lean-forward="false" selection-start-line="111" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/CarPrice.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2856">
+        <state relative-caret-position="2516">
           <caret line="205" column="0" lean-forward="false" selection-start-line="205" selection-start-column="0" selection-end-line="210" selection-end-column="18" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
@@ -728,7 +722,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/CarPriceDataBase.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-430">
+        <state relative-caret-position="114">
           <caret line="10" column="21" lean-forward="false" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
@@ -773,18 +767,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/site-packages/telepot/api.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="111">
-          <caret line="111" column="0" lean-forward="false" selection-start-line="111" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/UsersTable.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="203" column="6" lean-forward="true" selection-start-line="203" selection-start-column="6" selection-end-line="203" selection-end-column="6" />
+        <state relative-caret-position="113">
+          <caret line="242" column="13" lean-forward="true" selection-start-line="242" selection-start-column="13" selection-end-line="242" selection-end-column="13" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
             <element signature="e#1504#1854#0" expanded="false" />
@@ -792,60 +778,69 @@
             <element signature="e#2286#2632#0" expanded="false" />
             <element signature="e#2673#3013#0" expanded="false" />
             <element signature="e#3058#3402#0" expanded="false" />
-            <element signature="e#8083#9971#0" expanded="false" />
-            <element signature="e#10008#11039#0" expanded="false" />
-            <element signature="e#11076#12194#0" expanded="false" />
-            <marker date="1499770317174" expanded="true" signature="446:478" ph="Select Count... Users" />
-            <marker date="1499770317174" expanded="true" signature="446:499" ph="Select Count... Users" />
-            <marker date="1499770317174" expanded="true" signature="446:500" ph="Select Count... Users" />
-            <marker date="1499770317174" expanded="true" signature="610:634" ph="insert into Users... " />
-            <marker date="1499770317174" expanded="true" signature="610:635" ph="insert into Users... " />
-            <marker date="1499770317174" expanded="true" signature="610:636" ph="insert into Users... " />
-            <marker date="1499770317174" expanded="true" signature="610:637" ph="insert into Users... " />
-            <marker date="1499770317174" expanded="true" signature="610:672" ph="insert into Users... " />
-            <marker date="1499770317174" expanded="true" signature="610:673" ph="insert into Users... " />
-            <marker date="1499770317174" expanded="true" signature="610:678" ph="insert into Users... " />
-            <marker date="1499770317174" expanded="true" signature="610:696" ph="insert into Users... " />
-            <marker date="1499770317174" expanded="true" signature="610:730" ph="insert into Users... " />
-            <marker date="1499770317174" expanded="true" signature="868:915" ph="Select C fro... Users" />
-            <marker date="1499770317174" expanded="true" signature="1293:1372" ph="Update table... " />
-            <marker date="1499770317174" expanded="true" signature="1695:1724" ph="Update table... " />
-            <marker date="1499770317174" expanded="true" signature="1695:1744" ph="Update table... " />
-            <marker date="1499770317174" expanded="true" signature="1695:1765" ph="Update table... " />
-            <marker date="1499770317174" expanded="true" signature="1695:1766" ph="Update table... " />
-            <marker date="1499770317174" expanded="true" signature="2088:2155" ph="Update table... " />
-            <marker date="1499770317174" expanded="true" signature="2477:2544" ph="Update table... " />
-            <marker date="1499770317174" expanded="true" signature="2864:2888" ph="Update table... " />
-            <marker date="1499770317174" expanded="true" signature="2864:2905" ph="Update table... " />
-            <marker date="1499770317174" expanded="true" signature="2864:2925" ph="Update table... " />
-            <marker date="1499770317174" expanded="true" signature="3249:3275" ph="Update table... " />
-            <marker date="1499770317174" expanded="true" signature="3249:3314" ph="Update table... " />
-            <marker date="1499770317174" expanded="true" signature="3629:3676" ph="Select count... Users" />
-            <marker date="1499770317174" expanded="true" signature="3629:3679" ph="Select count... Users" />
-            <marker date="1499770317174" expanded="true" signature="3629:3694" ph="Select count... Users" />
-            <marker date="1499770317174" expanded="true" signature="4130:4170" ph="select brand... users" />
-            <marker date="1499770317174" expanded="true" signature="4276:4326" ph="Select count... CarTable" />
-            <marker date="1499770317174" expanded="true" signature="4276:4346" ph="Select count... Users" />
-            <marker date="1499770317174" expanded="true" signature="4276:4361" ph="Select count... Users" />
-            <marker date="1499770317174" expanded="true" signature="4276:4376" ph="Select count... Users" />
-            <marker date="1499770317174" expanded="true" signature="4872:4909" ph="Select * fro... users" />
-            <marker date="1499770317174" expanded="true" signature="6122:6161" ph="Select * fro... CarTable" />
-            <marker date="1499770317174" expanded="true" signature="6122:6196" ph="Select * fro... CarTable" />
-            <marker date="1499770317174" expanded="true" signature="6122:6510" ph="Select * fro... CarTable" />
-            <marker date="1499770317174" expanded="true" signature="6122:6536" ph="Select * fro... CarTable" />
-            <marker date="1499770317174" expanded="true" signature="6577:6895" ph="Select * fro... CarTable" />
-            <marker date="1499770317174" expanded="true" signature="6577:6921" ph="Select * fro... CarTable" />
-            <marker date="1499770317174" expanded="true" signature="8666:8736" ph="Select * fro... CarTable" />
-            <marker date="1499770317174" expanded="true" signature="8789:8836" ph="Select * fro... CarTable" />
-            <marker date="1499770317174" expanded="true" signature="10254:10301" ph="Select natio... users" />
-            <marker date="1499770317174" expanded="true" signature="10425:10474" ph="Select brand... CarTable" />
-            <marker date="1499770317174" expanded="true" signature="10425:10500" ph="Select brand... CarTable" />
-            <marker date="1499770317174" expanded="true" signature="11328:11382" ph="Select natio... users" />
-            <marker date="1499770317174" expanded="true" signature="11532:11632" ph="Select model... CarTable" />
-            <marker date="1499770317174" expanded="true" signature="12465:12519" ph="Select natio... users" />
-            <marker date="1499770317174" expanded="true" signature="12722:12822" ph="Select model... CarTable" />
-            <marker date="1499770317174" expanded="true" signature="13384:13387" ph="Select model... CarTable" />
+            <element signature="e#3438#3903#0" expanded="false" />
+            <element signature="e#3939#4585#0" expanded="false" />
+            <element signature="e#9998#11029#0" expanded="false" />
+            <element signature="e#11066#12184#0" expanded="false" />
+            <marker date="1499770872197" expanded="true" signature="446:478" ph="Select Count... Users" />
+            <marker date="1499770872197" expanded="true" signature="446:499" ph="Select Count... Users" />
+            <marker date="1499770872197" expanded="true" signature="446:500" ph="Select Count... Users" />
+            <marker date="1499770872197" expanded="true" signature="610:634" ph="insert into Users... " />
+            <marker date="1499770872197" expanded="true" signature="610:635" ph="insert into Users... " />
+            <marker date="1499770872197" expanded="true" signature="610:636" ph="insert into Users... " />
+            <marker date="1499770872197" expanded="true" signature="610:637" ph="insert into Users... " />
+            <marker date="1499770872197" expanded="true" signature="610:672" ph="insert into Users... " />
+            <marker date="1499770872197" expanded="true" signature="610:673" ph="insert into Users... " />
+            <marker date="1499770872197" expanded="true" signature="610:678" ph="insert into Users... " />
+            <marker date="1499770872197" expanded="true" signature="610:696" ph="insert into Users... " />
+            <marker date="1499770872197" expanded="true" signature="610:730" ph="insert into Users... " />
+            <marker date="1499770872197" expanded="true" signature="868:915" ph="Select C fro... Users" />
+            <marker date="1499770872197" expanded="true" signature="1293:1372" ph="Update table... " />
+            <marker date="1499770872197" expanded="true" signature="1695:1724" ph="Update table... " />
+            <marker date="1499770872197" expanded="true" signature="1695:1744" ph="Update table... " />
+            <marker date="1499770872197" expanded="true" signature="1695:1765" ph="Update table... " />
+            <marker date="1499770872197" expanded="true" signature="1695:1766" ph="Update table... " />
+            <marker date="1499770872197" expanded="true" signature="2088:2155" ph="Update table... " />
+            <marker date="1499770872197" expanded="true" signature="2477:2544" ph="Update table... " />
+            <marker date="1499770872197" expanded="true" signature="2864:2888" ph="Update table... " />
+            <marker date="1499770872197" expanded="true" signature="2864:2905" ph="Update table... " />
+            <marker date="1499770872197" expanded="true" signature="2864:2925" ph="Update table... " />
+            <marker date="1499770872197" expanded="true" signature="3249:3275" ph="Update table... " />
+            <marker date="1499770872197" expanded="true" signature="3249:3314" ph="Update table... " />
+            <marker date="1499770872197" expanded="true" signature="3629:3676" ph="Select count... Users" />
+            <marker date="1499770872197" expanded="true" signature="3629:3679" ph="Select count... Users" />
+            <marker date="1499770872197" expanded="true" signature="3629:3694" ph="Select count... Users" />
+            <marker date="1499770872197" expanded="true" signature="4130:4170" ph="select brand... users" />
+            <marker date="1499770872197" expanded="true" signature="4276:4326" ph="Select count... CarTable" />
+            <marker date="1499770872197" expanded="true" signature="4276:4346" ph="Select count... Users" />
+            <marker date="1499770872197" expanded="true" signature="4276:4361" ph="Select count... Users" />
+            <marker date="1499770872197" expanded="true" signature="4276:4376" ph="Select count... Users" />
+            <marker date="1499770872197" expanded="true" signature="4872:4909" ph="Select * fro... users" />
+            <marker date="1499770872197" expanded="true" signature="6122:6161" ph="Select * fro... CarTable" />
+            <marker date="1499770872197" expanded="true" signature="6122:6196" ph="Select * fro... CarTable" />
+            <marker date="1499770872197" expanded="true" signature="6122:6510" ph="Select * fro... CarTable" />
+            <marker date="1499770872197" expanded="true" signature="6122:6536" ph="Select * fro... CarTable" />
+            <marker date="1499770872197" expanded="true" signature="6577:6895" ph="Select * fro... CarTable" />
+            <marker date="1499770872197" expanded="true" signature="6577:6921" ph="Select * fro... CarTable" />
+            <marker date="1499770872197" expanded="true" signature="8661:8731" ph="Select * fro... CarTable" />
+            <marker date="1499770872197" expanded="true" signature="8784:8831" ph="Select * fro... CarTable" />
+            <marker date="1499770872197" expanded="true" signature="10244:10291" ph="Select natio... users" />
+            <marker date="1499770872197" expanded="true" signature="10415:10464" ph="Select brand... CarTable" />
+            <marker date="1499770872197" expanded="true" signature="10415:10490" ph="Select brand... CarTable" />
+            <marker date="1499770872197" expanded="true" signature="11318:11372" ph="Select natio... users" />
+            <marker date="1499770872197" expanded="true" signature="11522:11622" ph="Select model... CarTable" />
+            <marker date="1499770872197" expanded="true" signature="12455:12509" ph="Select natio... users" />
+            <marker date="1499770872197" expanded="true" signature="12712:12812" ph="Select model... CarTable" />
+            <marker date="1499770872197" expanded="true" signature="13374:13377" ph="Select model... CarTable" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TemporaryFile1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="18" lean-forward="false" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
+          <folding />
         </state>
       </provider>
     </entry>
