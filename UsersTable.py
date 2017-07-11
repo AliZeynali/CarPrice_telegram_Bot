@@ -17,7 +17,8 @@ def getCurrent(chat_id):
     cur.execute(sql)
     count = cur.fetchall()
     if int(count[0][0]) == 0:
-        sql = "insert into Users values ( " + str(chat_id) + " , " + " \'صفحه اصلی\'" + " , null, null, null, null, null )"
+        sql = "insert into Users values ( " + str(
+            chat_id) + " , " + " \'صفحه اصلی\'" + " , null, null, null, null, null )"
         cur.execute(sql)
         myConnection.commit()
         myConnection.close()
@@ -64,7 +65,7 @@ def updateModel(chat_id, newModel):
     global hostname, username, password, database
     myConnection = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
     cur = myConnection.cursor()
-    sql = "Update Users Set brand = \'" + newModel + "\'" + " Where chat_id = " + str(chat_id)
+    sql = "Update Users Set model = \'" + newModel + "\'" + " Where chat_id = " + str(chat_id)
     cur.execute(sql)
     myConnection.commit()
     myConnection.close()
@@ -74,7 +75,7 @@ def updateYear(chat_id, newYear):
     global hostname, username, password, database
     myConnection = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
     cur = myConnection.cursor()
-    sql = "Update Users Set brand = " + str(newYear) + " Where chat_id = " + str(chat_id)
+    sql = "Update Users Set year = " + str(newYear) + " Where chat_id = " + str(chat_id)
     cur.execute(sql)
     myConnection.commit()
     myConnection.close()
@@ -84,7 +85,7 @@ def updateDrived(chat_id, newDrived):
     global hostname, username, password, database
     myConnection = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
     cur = myConnection.cursor()
-    sql = "Update Users Set brand = " + str(newDrived) + " Where chat_id = " + str(chat_id)
+    sql = "Update Users Set drived = " + str(newDrived) + " Where chat_id = " + str(chat_id)
     cur.execute(sql)
     myConnection.commit()
     myConnection.close()
@@ -94,10 +95,11 @@ def hasBrand(chatID, brand):
     global hostname, username, password, database
     myConnection = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
     cur = myConnection.cursor()
-    sql = "Select count(brand) from Users Where brand = \'" + brand + "\'"
+    sql = "Select count(brand) from CarTable Where brand = \'" + brand + "\'"
+    cur.execute(sql)
     count = cur.fetchall()
     answer = False
-    if int(count[0]) > 0:
+    if int(count[0][0]) > 0:
         answer = True
     cur.execute(sql)
     myConnection.commit()
@@ -105,14 +107,19 @@ def hasBrand(chatID, brand):
     return answer
 
 
-def hasModel(chatID, brand, model):
+def hasModel(chatID, model):
     global hostname, username, password, database
     myConnection = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
     cur = myConnection.cursor()
-    sql = "Select count(model) from Users Where brand = \'" + brand + "\' and model = \'" + model + "\'"
+    sql = "select brand from users where chat_id = " + str(chatID)
+    cur.execute(sql)
+    for brand in cur.fetchall():
+        Brand = brand[0]
+    sql = "Select count(model) from CarTable Where brand = \'" + str(Brand) + "\' and model = \'" + model + "\'"
+    cur.execute(sql)
     count = cur.fetchall()
     answer = False
-    if int(count[0]) > 0:
+    if int(count[0][0]) > 0:
         answer = True
     cur.execute(sql)
     myConnection.commit()
@@ -121,72 +128,88 @@ def hasModel(chatID, brand, model):
 
 
 def giveData(chatID):
+    String = "خودرو هایی با مشخصات مورد نظر شما عبارت اند از:\n\n"
     global hostname, username, password, database
     myConnection = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
     cur = myConnection.cursor()
     sql = "Select * from users Where chat_id  = " + str(chatID)
     cur.execute(sql)
     for chatID, current, brand, model, year, drived, nationality in cur.fetchall():
-        Brand = brand
-        Model = model
-        Year = year
-        Drived = drived
-        Nationality = nationality
-    if year == 1:
+        Brand = str(brand)
+        Model = str(model)
+        Year = str(year)
+        Drived = str(drived)
+        Nationality = str(nationality)
+    if Year == "1":
         fromYear1 = 1396
         tillYear1 = 1500  # just big number
         fromYear2 = 2017
         tillYear2 = 2100  # just big number
-    elif year == 2:
+    elif Year == "2":
         fromYear1 = 1392
         tillYear1 = 1395
         fromYear2 = 2013
         tillYear2 = 2016
-    elif year == 3:
+    elif Year == "3":
         fromYear1 = 1388
         tillYear1 = 1391
         fromYear2 = 2009
         tillYear2 = 2012
-    elif year == 4:
+    elif Year == "4":
         fromYear1 = 1300
         tillYear1 = 1388
         fromYear2 = 1900
         tillYear2 = 2009
 
-    if Drived == 1:
+    if Drived == "1":
         leastDrived = 0
         MaxDrived = 2000
-    elif Drived == 2:
+    elif Drived == "2":
         leastDrived = 2000
         MaxDrived = 10000
-    elif Drived == 3:
+    elif Drived == "3":
         leastDrived = 10000
         MaxDrived = 50000
-    elif Drived == 4:
+    elif Drived == "4":
         leastDrived = 50000
         MaxDrived = 80000
-    elif Drived == 5:
+    elif Drived == "5":
         leastDrived = 80000
         MaxDrived = 120000
-    sql = "Select * from CarTable Where brand = \'" + Brand + "\' and model = \'" + Model + "\' and (year between " + str(
-        fromYear1) + \
-          " and " + str(tillYear1) + " or year between " + str(fromYear2) + " and " + str(
-        tillYear2) + ")  and drived between " + str(leastDrived) + \
-          " and " + str(MaxDrived) + " and nationality = \'" + Nationality + "\'"
-    if Drived == 6:
-        sql = "Select * from CarTable Where brand = \'" + Brand + "\' and model = \'" + Model + "\' and (year between " + str(
+    if Drived != "6":
+        sql = "Select * from CarTable Where brand = \'" + str(Brand) + "\' and model = \'" + str(Model) + "\' and (madeyear between " + str(
             fromYear1) + \
-              " and " + str(tillYear1) + " or year between " + str(fromYear2) + " and " + str(
-            tillYear2) + ")  and drived >= 120000 " + " and nationality = \'" + Nationality + "\'"
+              " and " + str(tillYear1) + " or madeyear between " + str(fromYear2) + " and " + str(
+            tillYear2) + ")  and drived between " + str(leastDrived) + \
+              " and " + str(MaxDrived) + " and nationality = \'" + str(Nationality) + "\'"
+    elif Drived == "6":
+        sql = "Select * from CarTable Where brand = \'" + Brand + "\' and model = \'" + Model + "\' and (madeyear between " + str(
+            fromYear1) + \
+              " and " + str(tillYear1) + " or madeyear between " + str(fromYear2) + " and " + str(
+            tillYear2) + ")  and drived >= 120000 " + " and nationality = \'" + str(Nationality) + "\'"
     data = []
     cur.execute(sql)
+    cnt = 0
     for brand, model, price, drived, madeYear, fuelType, state, color, gear, URL, nationality in cur.fetchall():
-        data.append({brand, model, price, drived, madeYear, fuelType, state, color, gear, URL, nationality})
+        data.append([brand, model, price, drived, madeYear, fuelType, state, color, gear, URL, nationality])
     myConnection.close()
-    return data
+    while cnt < 20:
+        cnt += 1
+        for car in data:
+            String += "برند: " + str(car[0]) + "\n" + "مدل: " + str(car[1]) + "\n" + "سال تولید: " + str(
+                car[4]) + "\n" + "قیمت: " + str(car[2]) + "\n" + "کارکرد: " + str(car[3]) + "\n" + "نوع سوخت مصرفی: " + str(
+                car[5]) + "\n" + "رنگ: " + str(
+                car[7]) + "\n" + "نوع گیربکس: " + str(car[8]) + "\n" + "استان: " + str(car[6]) + "\n" + str(
+                car[9]) + "\n" + 30 * "-" + "\n"
+    if String == "خودرو هایی با مشخصات مورد نظر شما عبارت اند از:\n\n":
+        return "خودرویی با مشخصات مورد نظر شما یافت نشد!" + "\n\n" + "بازگشت به صفحه اصلی: " + "/MainMenu" + "\n\n" + \
+               "Nullatech.com"
+    return String + "\n\n" + "بازگشت به صفحه اصلی: " + "/MainMenu" + "\n\n" + \
+           "Nullatech.com"
 
 
 def givePriceSearchData(type):
+    String = "خودرو های در محدوده قیمت مورد نظر شما عبارت اند از:\n\n"
     global hostname, username, password, database
     myConnection = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
     cur = myConnection.cursor()
@@ -203,16 +226,30 @@ def givePriceSearchData(type):
         minPrice = 100000000
         maxPrice = 150000000
 
-    sql = "Select * from CarTable Where price  BETWEEN " + str(minPrice) + " and " + str(maxPrice)
-    if type == 5:
-        sql = "Select * from CarTable Where price > 150000000"
+    if type != 5:
+        sql = "Select * from CarTable Where price  BETWEEN " + str(minPrice) + " and " + str(maxPrice)
+    elif type == 5:
+        sql = "Select * from CarTable Where price >= 150000000"
 
     data = []
     cur.execute(sql)
     for brand, model, price, drived, madeYear, fuelType, state, color, gear, URL, nationality in cur.fetchall():
-        data.append({brand, model, price, drived, madeYear, fuelType, state, color, gear, URL, nationality})
+        data.append([brand, model, price, drived, madeYear, fuelType, state, color, gear, URL, nationality])
     myConnection.close()
-    return data
+    cnt = 0
+    while cnt < 20:
+        cnt += 1
+        for car in data:
+            String += "برند: " + str(car[0]) + "\n" + "مدل: " + str(car[1]) + "\n" + "سال تولید: " + str(
+                car[4]) + "\n" + "قیمت: " + str(car[2]) + "\n" + "کارکرد: " + str(car[3]) + "\n" + "نوع سوخت مصرفی: " + str(
+                car[5]) + "\n" + "رنگ: " + str(
+                car[7]) + "\n" + "نوع گیربکس: " + str(car[8]) + "\n" + "استان: " + str(car[6]) + "\n" + str(
+                car[9]) + "\n" + 30 * "-" + "\n"
+    if String == "خودرو های در محدوده قیمت مورد نظر شما عبارت اند از:\n\n":
+        return "خودرویی در محدوده قیمتی مورد نظر شما یافت نشد!" + "\n\n" + "بازگشت به صفحه اصلی: " + "/MainMenu" + "\n\n" + \
+               "Nullatech.com"
+    return String + "\n\n" + "بازگشت به صفحه اصلی: " + "/MainMenu" + "\n\n" + \
+           "Nullatech.com"
 
 
 def createBrandsList(chatID):
@@ -223,16 +260,20 @@ def createBrandsList(chatID):
     sql = "Select nationality from users Where chat_id  = " + str(chatID)
     cur.execute(sql)
     for nationality in cur.fetchall():
-        Nationality = nationality
-    sql = "Select brand from CarTable Where nationality = \'" + Nationality + "\'"
+        Nationality = nationality[0]
+    sql = "Select brand from CarTable Where nationality = \'" + str(Nationality) + "\'"
     cur.execute(sql)
-    Brands =[]
+    Brands = []
     for brand in cur.fetchall():
-        if not Brands.__contains__(str(brand)):
+        if not Brands.__contains__(clearName(str(brand))):
             Brands.append(clearName(str(brand)))
     for brand in Brands:
         string += "/" + str(brand) + "\n"
-    return string
+    if string == "برند مورد نظر خود را انتخاب کنید: \n \n":
+        return "برندی یافت نشد!" + "\n\n" + "بازگشت به صفحه اصلی: " + "/MainMenu" + "\n\n" + \
+               "Nullatech.com"
+    return string + "\n\n" + "بازگشت به صفحه اصلی: " + "/MainMenu" + "\n\n" + \
+           "Nullatech.com"
 
 
 def createModelsList(chatID):
@@ -242,28 +283,50 @@ def createModelsList(chatID):
     cur = myConnection.cursor()
     sql = "Select nationality, brand from users Where chat_id  = " + str(chatID)
     cur.execute(sql)
-    for nationality , brand in cur.fetchall():
+    for nationality, brand in cur.fetchall():
         Nationality = nationality
         Brand = brand
-    sql = "Select model from CarTable Where nationality = \'" + Nationality + "\' and brand = \'"+ Brand  + "\'"
+    sql = "Select model from CarTable Where nationality = \'" + Nationality + "\' and brand = \'" + Brand + "\'"
     cur.execute(sql)
-    Models =[]
+    Models = []
     for model in cur.fetchall():
-        if not Models.__contains__(model):
+        if not Models.__contains__(clearName(str(model))):
             Models.append(clearName(str(model)))
 
     for model in Models:
         string += "/" + str(model) + "\n"
-    return string
-
+    if string == "مدل خودروی مورد نظر خود را انتخاب کنید: \n \n":
+        return "مدلی با این نام برند، یافت نشد!" + "\n\n" + "بازگشت به صفحه اصلی: " + "/MainMenu" + "\n\n" + \
+               "Nullatech.com"
+    return string + "\n\n" + "بازگشت به صفحه اصلی: " + "/MainMenu" + "\n\n" + \
+           "Nullatech.com"
 
 def tm1():
+    string = "مدل خودروی مورد نظر خود را انتخاب کنید: \n \n"
     global hostname, username, password, database
     myConnection = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
     cur = myConnection.cursor()
-    sql = "Select current from Users" + " Where chat_id = " + str("3")
+    # sql = "Select nationality, brand from users Where chat_id  = " + str(chatID)
+    # cur.execute(sql)
+    # for nationality, brand in cur.fetchall():
+    #     Nationality = nationality
+    #     Brand = brand
+    Nationality = "I"
+    Brand = "Peugeout"
+    sql = "Select model from CarTable Where nationality = \'" + Nationality + "\' and brand = \'" + Brand + "\'"
     cur.execute(sql)
-    for x in cur.fetchall():
-        print(x[0])
+    Models = []
+    for model in cur.fetchall():
+        if not Models.__contains__(clearName(str(model))):
+            Models.append(clearName(str(model)))
 
-tm1()
+    for model in Models:
+        string += "/" + str(model) + "\n"
+    if string == "مدل خودروی مورد نظر خود را انتخاب کنید: \n \n":
+        return "مدلی با این نام برند، یافت نشد!" + "\n\n" + "بازگشت به صفحه اصلی: " + "/MainMenu" + "\n\n" + \
+               "Nullatech.com"
+    return string + "\n\n" + "بازگشت به صفحه اصلی: " + "/MainMenu" + "\n\n" + \
+           "Nullatech.com"
+
+
+# print(tm1())

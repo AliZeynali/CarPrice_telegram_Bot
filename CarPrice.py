@@ -32,7 +32,7 @@ markupDrived = ReplyKeyboardMarkup(keyboard=[
     [KeyboardButton(text="بازگشت به صفحه اصلی")]
 ])
 
-def update_Order(chatID, brand, model, year, drived):
+def update_Order(chatID, brand, model, year, drived, nationality):
     # if each of brand,model, year, drived is -1 it wont change
     if brand != -1:
         updateBrnad(chatID, brand)
@@ -42,6 +42,8 @@ def update_Order(chatID, brand, model, year, drived):
         updateYear(chatID, year)
     if drived != -1:
         updateDrived(chatID, drived)
+    if nationality != -1:
+        updateNationality(chatID, nationality)
 
 
 def prettyTime(last_update):
@@ -74,10 +76,10 @@ def nextMarkUp(nextMark, chat_id):
     if nextMark in { "start", "MainMenu", "بازگشت به صفحه اصلی"}:
         markup = markupStart
         setCurrent(chat_id, 'MainMenu')
-        update_Order(chat_id, "null", "null", "null", "null")
+        update_Order(chat_id, "null", "null", "null", "null", "null")
         return markup, "MainMenu"
     if current in {"start", "MainMenu"}:
-        update_Order(chat_id, "null", "null", "null", "null")
+        update_Order(chat_id, "null", "null", "null", "null", "null")
         if nextMark == "جستجو بر اساس مشخصات":
             markup = markupNationality
             setCurrent(chat_id, "nationality")
@@ -95,19 +97,20 @@ def nextMarkUp(nextMark, chat_id):
     if current == "nationality":
         if nextMark in {"ایرانی", "خارجی"}:
             if nextMark == "ایرانی":
-                updateNationality(chat_id, "I")
+                update_Order(chat_id, -1, -1, -1, -1, "I")
             else:
                 updateNationality(chat_id, "F")
+                update_Order(chat_id, -1, -1, -1, -1, "F")
             setCurrent(chat_id, "BrandList")
             return markupBack, "BrandList"
     if current == "BrandList":
         if hasBrand(chat_id, nextMark):
-            update_Order(chat_id, nextMark, -1, -1, -1)
+            update_Order(chat_id, nextMark, -1, -1, -1, -1)
             setCurrent(chat_id, "ModelList")
             return markupBack, "ModelList"
     if current == "ModelList":
         if hasModel(chat_id, nextMark):
-            update_Order(chat_id, -1, nextMark, -1, -1)
+            update_Order(chat_id, -1, nextMark, -1, -1, -1)
             setCurrent(chat_id, "Year")
             markup = markupYear
             return markup, "Year"
@@ -122,7 +125,7 @@ def nextMarkUp(nextMark, chat_id):
                 year = 3
             elif nextMark == "قبل از 1388 (2009)":
                 year = 4
-            update_Order(chat_id, -1, -1, str(year), -1)
+            update_Order(chat_id, -1, -1, str(year), -1, -1)
             markup = markupDrived
             setCurrent(chat_id, "Drived")
             return markup, "Drived"
@@ -142,7 +145,7 @@ def nextMarkUp(nextMark, chat_id):
                 Drived = 5
             elif nextMark == "بالای 120000":
                 Drived = 6
-            update_Order(chat_id, -1, -1, -1, Drived)
+            update_Order(chat_id, -1, -1, -1, Drived, -1)
             setCurrent(chat_id, "MainMenu")
             return markup, "Data"
     return None, None  # if unvalid text recieved return None
