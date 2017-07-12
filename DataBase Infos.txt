@@ -1,0 +1,12 @@
+CarTable (Brand, Model, Price, Drived, MadeYear, FuelType, State, Color, Gear, URL, nationality)
+
+Create table CarTable(Brand char(20), Model char (20), Price bigint, Drived bigint, MadeYear int, FuelType char(20), state char(20), 
+Color char(20), Gear char(20), URL varchar(2083),nationality ,Primary key (URL), check (Price > 0 and Drived >= 0 and MadeYear > 0) )
+
+Insert into CarTable (Brand, Model, Price, Drived, MadeYear, FuelType, state, Color, Gear, URL, nationality)
+
+
+
+Users:
+
+Create Table Users(chat_id bigint, current varchar, primary key(chat_id), brand varchar(20), model varchar(20), year int, drived int, nationality varchar(20))

@@ -177,7 +177,8 @@ def giveData(chatID):
         leastDrived = 80000
         MaxDrived = 120000
     if Drived != "6":
-        sql = "Select * from CarTable Where brand = \'" + str(Brand) + "\' and model = \'" + str(Model) + "\' and (madeyear between " + str(
+        sql = "Select * from CarTable Where brand = \'" + str(Brand) + "\' and model = \'" + str(
+            Model) + "\' and (madeyear between " + str(
             fromYear1) + \
               " and " + str(tillYear1) + " or madeyear between " + str(fromYear2) + " and " + str(
             tillYear2) + ")  and drived between " + str(leastDrived) + \
@@ -189,12 +190,17 @@ def giveData(chatID):
             tillYear2) + ")  and drived >= 120000 " + " and nationality = \'" + str(Nationality) + "\'"
     data = []
     cur.execute(sql)
-    cnt = 0
+
     for brand, model, price, drived, madeYear, fuelType, state, color, gear, URL, nationality in cur.fetchall():
         data.append([brand, model, price, drived, madeYear, fuelType, state, color, gear, URL, nationality])
     myConnection.close()
+
+    #   Send message size is limited (about 4000 characters.) so we only send last 10 items. reverse is for last items added
+    #   and cnt is counter for count items from 1 to 10
+    cnt = 0
+    data.reverse()
     for car in data:
-        if cnt >=13:
+        if cnt >= 10:
             break
         cnt += 1
         String += "برند: " + str(car[0]) + "\n" + "مدل: " + str(car[1]) + "\n" + "سال تولید: " + str(
@@ -237,9 +243,13 @@ def givePriceSearchData(type):
     for brand, model, price, drived, madeYear, fuelType, state, color, gear, URL, nationality in cur.fetchall():
         data.append([brand, model, price, drived, madeYear, fuelType, state, color, gear, URL, nationality])
     myConnection.close()
+
+    #   Send message size is limited (about 4000 characters.) so we only send last 10 items. reverse is for last items added
+    #   and cnt is counter for count items from 1 to 10
+    data.reverse()
     cnt = 0
     for car in data:
-        if cnt >=13:
+        if cnt >= 10:
             break
         cnt += 1
         String += "برند: " + str(car[0]) + "\n" + "مدل: " + str(car[1]) + "\n" + "سال تولید: " + str(
@@ -303,6 +313,7 @@ def createModelsList(chatID):
     return string + "\n\n" + "بازگشت به صفحه اصلی: " + "/MainMenu" + "\n\n" + \
            "Nullatech.com"
 
+
 def tm1():
     string = "مدل خودروی مورد نظر خود را انتخاب کنید: \n \n"
     global hostname, username, password, database
@@ -329,6 +340,5 @@ def tm1():
                "Nullatech.com"
     return string + "\n\n" + "بازگشت به صفحه اصلی: " + "/MainMenu" + "\n\n" + \
            "Nullatech.com"
-
 
 # print(tm1())
