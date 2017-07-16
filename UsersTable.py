@@ -8,6 +8,7 @@ username = 'postgres'
 password = '137555'
 database = 'CarPriceNullatech'
 
+#number of data in each message has been seted equl 10
 
 def getCurrent(chat_id):
     global hostname, username, password, database
@@ -18,7 +19,7 @@ def getCurrent(chat_id):
     count = cur.fetchall()
     if int(count[0][0]) == 0:
         sql = "insert into Users values ( " + str(
-            chat_id) + " , " + " \'صفحه اصلی\'" + " , null, null, null, null, null )"
+            chat_id) + " , " + " \'MainMeu\'" + " , null, null, null, null, null , 0, 0)"
         cur.execute(sql)
         myConnection.commit()
         myConnection.close()
@@ -90,6 +91,176 @@ def updateDrived(chat_id, newDrived):
     myConnection.commit()
     myConnection.close()
 
+def updatePriceSearchtype(chatId, type):
+    global hostname, username, password, database
+    myConnection = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
+    cur = myConnection.cursor()
+    sql = "Update Users Set priceType = " + str(type) + " Where chat_id = " + str(chatId)
+    cur.execute(sql)
+    myConnection.commit()
+    myConnection.close()
+
+def resetListLevel(chatId):
+    global hostname, username, password, database
+    myConnection = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
+    cur = myConnection.cursor()
+    sql = "Update Users Set listLevel = 0 Where chat_id = " + str(chatId)
+    cur.execute(sql)
+    myConnection.commit()
+    myConnection.close()
+
+
+def resetPriceSearchLevel(chatId):
+    global hostname, username, password, database
+    myConnection = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
+    cur = myConnection.cursor()
+    sql = "Update Users Set pricesearchlevel = 0 Where chat_id = " + str(chatId)
+    cur.execute(sql)
+    myConnection.commit()
+    myConnection.close()
+
+
+def nextListLevel(chatId):
+    global hostname, username, password, database
+    myConnection = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
+    cur = myConnection.cursor()
+    sql = "Update Users Set listLevel = listLevel + 1  Where chat_id = " + str(chatId)
+    cur.execute(sql)
+    myConnection.commit()
+    myConnection.close()
+
+
+def lastListLevel(chatId):
+    global hostname, username, password, database
+    myConnection = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
+    cur = myConnection.cursor()
+    sql = "Update Users Set listLevel = listLevel - 1  Where chat_id = " + str(chatId)
+    cur.execute(sql)
+    myConnection.commit()
+    myConnection.close()
+
+
+def nextPriceSearchLevel(chatId):
+    global hostname, username, password, database
+    myConnection = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
+    cur = myConnection.cursor()
+    sql = "Update Users Set pricesearchlevel = pricesearchlevel + 1  Where chat_id = " + str(chatId)
+    cur.execute(sql)
+    myConnection.commit()
+    myConnection.close()
+
+
+def lastPriceSearchLevel(chatId):
+    global hostname, username, password, database
+    myConnection = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
+    cur = myConnection.cursor()
+    sql = "Update Users Set pricesearchlevel = pricesearchlevel - 1  Where chat_id = " + str(chatId)
+    cur.execute(sql)
+    myConnection.commit()
+    myConnection.close()
+
+def hasNextListLevel(chatID):
+    global hostname, username, password, database
+    myConnection = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
+    cur = myConnection.cursor()
+    sql = "Select * from users Where chat_id  = " + str(chatID)
+    cur.execute(sql)
+    for chatID, current, brand, model, year, drived, nationality, listLevel, pLev in cur.fetchall():
+        Brand = str(brand)
+        Model = str(model)
+        Year = str(year)
+        Drived = str(drived)
+        Nationality = str(nationality)
+        Level = listLevel
+    if Year == "1":
+        fromYear1 = 1396
+        tillYear1 = 1500  # just big number
+        fromYear2 = 2017
+        tillYear2 = 2100  # just big number
+    elif Year == "2":
+        fromYear1 = 1392
+        tillYear1 = 1395
+        fromYear2 = 2013
+        tillYear2 = 2016
+    elif Year == "3":
+        fromYear1 = 1388
+        tillYear1 = 1391
+        fromYear2 = 2009
+        tillYear2 = 2012
+    elif Year == "4":
+        fromYear1 = 1300
+        tillYear1 = 1388
+        fromYear2 = 1900
+        tillYear2 = 2009
+
+    if Drived == "1":
+        leastDrived = 0
+        MaxDrived = 2000
+    elif Drived == "2":
+        leastDrived = 2000
+        MaxDrived = 10000
+    elif Drived == "3":
+        leastDrived = 10000
+        MaxDrived = 50000
+    elif Drived == "4":
+        leastDrived = 50000
+        MaxDrived = 80000
+    elif Drived == "5":
+        leastDrived = 80000
+        MaxDrived = 120000
+    if Drived != "6":
+        sql = "Select count(*) from CarTable Where brand = \'" + str(Brand) + "\' and model = \'" + str(
+            Model) + "\' and (madeyear between " + str(
+            fromYear1) + \
+              " and " + str(tillYear1) + " or madeyear between " + str(fromYear2) + " and " + str(
+            tillYear2) + ")  and drived between " + str(leastDrived) + \
+              " and " + str(MaxDrived) + " and nationality = \'" + str(
+            Nationality) + "\'" + " order by date desc, time desc"
+    elif Drived == "6":
+        sql = "Select count(*) from CarTable Where brand = \'" + Brand + "\' and model = \'" + Model + "\' and (madeyear between " + str(
+            fromYear1) + \
+              " and " + str(tillYear1) + " or madeyear between " + str(fromYear2) + " and " + str(
+            tillYear2) + ")  and drived >= 120000 " + " and nationality = \'" + str(
+            Nationality) + "\'" + " order by date desc, time desc"
+    cur.execute(sql)
+    num = cur.fetchall()[0][0]
+    myConnection.close()
+    # check if there are more items, return yes
+    if int(num) > (Level+1)*10:
+        return True
+    return False
+
+def hasNextPriceLevel(chatID):
+    global hostname, username, password, database
+    myConnection = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
+    cur = myConnection.cursor()
+    sql = "Select priceSearchLevel from users Where chat_id  = " + str(chatID)
+    cur.execute(sql)
+    for lev in cur.fetchall():
+        Level = lev
+    if type == 1:
+        minPrice = 0
+        maxPrice = 20000000
+    elif type == 2:
+        minPrice = 20000000
+        maxPrice = 50000000
+    elif type == 3:
+        minPrice = 50000000
+        maxPrice = 100000000
+    elif type == 4:
+        minPrice = 100000000
+        maxPrice = 150000000
+
+    if type != 5:
+        sql = "Select count(*) from CarTable Where price  BETWEEN " + str(minPrice) + " and " + str(
+            maxPrice) + " order by date desc, time desc"
+    elif type == 5:
+        sql = "Select count(*) from CarTable Where price >= 150000000" + " order by date desc, time desc"
+
+    num = cur.fetchall()[0][0]
+    if int(num)> (Level+1)*10:
+        return True
+    return False
 
 def hasBrand(chatID, brand):
     global hostname, username, password, database
@@ -134,12 +305,13 @@ def giveData(chatID):
     cur = myConnection.cursor()
     sql = "Select * from users Where chat_id  = " + str(chatID)
     cur.execute(sql)
-    for chatID, current, brand, model, year, drived, nationality in cur.fetchall():
+    for chatID, current, brand, model, year, drived, nationality, listLevel, pLev in cur.fetchall():
         Brand = str(brand)
         Model = str(model)
         Year = str(year)
         Drived = str(drived)
         Nationality = str(nationality)
+        Level = listLevel
     if Year == "1":
         fromYear1 = 1396
         tillYear1 = 1500  # just big number
@@ -182,12 +354,14 @@ def giveData(chatID):
             fromYear1) + \
               " and " + str(tillYear1) + " or madeyear between " + str(fromYear2) + " and " + str(
             tillYear2) + ")  and drived between " + str(leastDrived) + \
-              " and " + str(MaxDrived) + " and nationality = \'" + str(Nationality) + "\'"
+              " and " + str(MaxDrived) + " and nationality = \'" + str(
+            Nationality) + "\'" + " order by date desc, time desc"
     elif Drived == "6":
         sql = "Select * from CarTable Where brand = \'" + Brand + "\' and model = \'" + Model + "\' and (madeyear between " + str(
             fromYear1) + \
               " and " + str(tillYear1) + " or madeyear between " + str(fromYear2) + " and " + str(
-            tillYear2) + ")  and drived >= 120000 " + " and nationality = \'" + str(Nationality) + "\'"
+            tillYear2) + ")  and drived >= 120000 " + " and nationality = \'" + str(
+            Nationality) + "\'" + " order by date desc, time desc"
     data = []
     cur.execute(sql)
 
@@ -195,14 +369,13 @@ def giveData(chatID):
         data.append([brand, model, price, drived, madeYear, fuelType, state, color, gear, URL, nationality])
     myConnection.close()
 
-    #   Send message size is limited (about 4000 characters.) so we only send last 10 items. reverse is for last items added
-    #   and cnt is counter for count items from 1 to 10
-    cnt = 0
-    data.reverse()
-    for car in data:
-        if cnt >= 10:
-            break
-        cnt += 1
+    #   Send message size is limited (about 4000 characters.) so we only send last 10 items.
+    #   elementInPage shows how many element will show in each message
+
+    elementInPage = 10
+    minIndex = Level * elementInPage
+    maxIndex = min((Level + 1) * elementInPage - 1, len(data) - 1)
+    for car in data[minIndex:maxIndex]:
         String += "برند: " + str(car[0]) + "\n" + "مدل: " + str(car[1]) + "\n" + "سال تولید: " + str(
             car[4]) + "\n" + "قیمت: " + str(car[2]) + "\n" + "کارکرد: " + str(car[3]) + "\n" + "نوع سوخت مصرفی: " + str(
             car[5]) + "\n" + "رنگ: " + str(
@@ -215,11 +388,16 @@ def giveData(chatID):
            "Nullatech.com"
 
 
-def givePriceSearchData(type):
+def givePriceSearchData(chatID):
     String = "خودرو های در محدوده قیمت مورد نظر شما عبارت اند از:\n\n"
     global hostname, username, password, database
     myConnection = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
     cur = myConnection.cursor()
+    sql = "Select priceSearchLevel , priceType from users Where chat_id  = " + str(chatID)
+    cur.execute(sql)
+    for lev , Type in cur.fetchall():
+        Level = lev
+        type = int(Type)
     if type == 1:
         minPrice = 0
         maxPrice = 20000000
@@ -234,24 +412,22 @@ def givePriceSearchData(type):
         maxPrice = 150000000
 
     if type != 5:
-        sql = "Select * from CarTable Where price  BETWEEN " + str(minPrice) + " and " + str(maxPrice)
+        sql = "Select * from CarTable Where price  BETWEEN " + str(minPrice) + " and " + str(
+            maxPrice) + " order by date desc, time desc"
     elif type == 5:
-        sql = "Select * from CarTable Where price >= 150000000"
+        sql = "Select * from CarTable Where price >= 150000000" + " order by date desc, time desc"
 
     data = []
     cur.execute(sql)
-    for brand, model, price, drived, madeYear, fuelType, state, color, gear, URL, nationality in cur.fetchall():
+    for brand, model, price, drived, madeYear, fuelType, state, color, gear, URL, nationality, date, time in cur.fetchall():
         data.append([brand, model, price, drived, madeYear, fuelType, state, color, gear, URL, nationality])
     myConnection.close()
 
-    #   Send message size is limited (about 4000 characters.) so we only send last 10 items. reverse is for last items added
-    #   and cnt is counter for count items from 1 to 10
-    data.reverse()
-    cnt = 0
-    for car in data:
-        if cnt >= 10:
-            break
-        cnt += 1
+    #   Send message size is limited (about 4000 characters.) so we only send last 10 items.
+    elementInPage = 10
+    minIndex = Level * elementInPage
+    maxIndex = min((Level + 1) * elementInPage - 1, len(data) - 1)
+    for car in data[minIndex:maxIndex]:
         String += "برند: " + str(car[0]) + "\n" + "مدل: " + str(car[1]) + "\n" + "سال تولید: " + str(
             car[4]) + "\n" + "قیمت: " + str(car[2]) + "\n" + "کارکرد: " + str(car[3]) + "\n" + "نوع سوخت مصرفی: " + str(
             car[5]) + "\n" + "رنگ: " + str(
@@ -262,7 +438,6 @@ def givePriceSearchData(type):
                "Nullatech.com"
     return String + "\n\n" + "بازگشت به صفحه اصلی: " + "/MainMenu" + "\n\n" + \
            "Nullatech.com"
-
 
 def createBrandsList(chatID):
     string = "برند مورد نظر خود را انتخاب کنید: \n \n"
@@ -341,4 +516,4 @@ def tm1():
     return string + "\n\n" + "بازگشت به صفحه اصلی: " + "/MainMenu" + "\n\n" + \
            "Nullatech.com"
 
-# print(tm1())
+print(givePriceSearchData(1))

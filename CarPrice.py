@@ -5,11 +5,11 @@ from telepot.namedtuple import ReplyKeyboardMarkup, KeyboardButton
 from CarPriceDataBase import *
 from UsersTable import *
 
-last_update = "notUpdated"
-defCurrent = "صفحه اصلی"
 markupStart = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text="جستجو بر اساس مشخصات")],
                                             [KeyboardButton(text="جستجو بر اساس قیمت")]])
-markupBack =  ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text="بازگشت به صفحه اصلی")]])
+markupNext = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text="نشان دادن موارد بیشتر")],
+                                           [KeyboardButton(text="بازگشت به صفحه اصلی")]])
+markupBack = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text="بازگشت به صفحه اصلی")]])
 markupPrice = ReplyKeyboardMarkup(keyboard=[
     [KeyboardButton(text="زیر 20 میلیون")], [KeyboardButton(text="20 تا 50 میلیون")],
     [KeyboardButton(text="50 تا 100 میلیون")],
@@ -31,6 +31,7 @@ markupDrived = ReplyKeyboardMarkup(keyboard=[
     [KeyboardButton(text="بالای 120000")],
     [KeyboardButton(text="بازگشت به صفحه اصلی")]
 ])
+
 
 def update_Order(chatID, brand, model, year, drived, nationality):
     # if each of brand,model, year, drived is -1 it wont change
@@ -65,17 +66,15 @@ def prettyTime(last_update):
     return str1 + str2
 
 
-
-
-
 def nextMarkUp(nextMark, chat_id):
-    markup = None
     global markupPrice, markupStart, markupDrived, markupYear, markupNationality, data, Brands, Models
     current = getCurrent(chat_id)
 
-    if nextMark in { "start", "MainMenu", "بازگشت به صفحه اصلی"}:
+    if nextMark in {"start", "MainMenu", "بازگشت به صفحه اصلی"}:
         markup = markupStart
         setCurrent(chat_id, 'MainMenu')
+        resetListLevel(chat_id)
+        resetPriceSearchLevel(chat_id)
         update_Order(chat_id, "null", "null", "null", "null", "null")
         return markup, "MainMenu"
     if current in {"start", "MainMenu"}:
@@ -91,9 +90,31 @@ def nextMarkUp(nextMark, chat_id):
     if current == "Price":
         if nextMark in {"زیر 20 میلیون", "20 تا 50 میلیون", "50 تا 100 میلیون",
                         "100 تا 150 میلیون", "بالای 150 میلیون"}:
-            markup = markupStart
-            setCurrent(chat_id, 'MainMenu')
-            return markup, nextMark
+            if nextMark == "زیر 20 میلیون":
+                type = 1
+            elif nextMark == "20 تا 50 میلیون":
+                type = 2
+            elif nextMark == "50 تا 100 میلیون":
+                type = 3
+            elif nextMark == "100 تا 150 میلیون":
+                type = 4
+            elif nextMark == "بالای 150 میلیون":
+                type = 5
+            updatePriceSearchtype(chat_id, type)
+            if hasNextPriceLevel(chat_id):
+                markup = markupNext
+            else:
+                markup = markupBack
+            setCurrent(chat_id, 'PriceSearchData')
+            return markup, "PriceSearchData"
+    if current == "PriceSearchData":
+        if nextMark == "نشان دادن موارد بیشتر" and hasNextPriceLevel(chat_id):
+            nextPriceSearchLevel(chat_id)
+            markup = markupNext
+        else: markup = markupBack
+        setCurrent(chat_id, 'PriceSearchData')
+        return markup, "PriceSearchData"
+
     if current == "nationality":
         if nextMark in {"ایرانی", "خارجی"}:
             if nextMark == "ایرانی":
@@ -132,7 +153,6 @@ def nextMarkUp(nextMark, chat_id):
     if current == "Drived":
         if nextMark in {"زیر 2000", "2000 تا 10000", "10000 تا 50000", "50000 تا 80000", "80000 تا 120000",
                         "بالای 120000"}:
-            markup = markupStart
             if nextMark == "زیر 2000":
                 Drived = 1
             elif nextMark == "2000 تا 10000":
@@ -146,8 +166,18 @@ def nextMarkUp(nextMark, chat_id):
             elif nextMark == "بالای 120000":
                 Drived = 6
             update_Order(chat_id, -1, -1, -1, Drived, -1)
-            setCurrent(chat_id, "MainMenu")
+            setCurrent(chat_id, "SearchData")
+            if hasNextListLevel(chat_id):
+                markup = markupNext
+            else: markup = markupBack
             return markup, "Data"
+        if current == "SearchData":
+            if hasNextListLevel(chat_id):
+                nextListLevel(chat_id)
+                markup = markupNext
+            else: markup = markupBack
+            return markup, "Data"
+
     return None, None  # if unvalid text recieved return None
 
 
@@ -177,7 +207,7 @@ def on_chat_message(message):
                 bot.sendMessage(chat_id, "خودروی مورد نظرتان  در کدام نوع قرار دارد؟ ",
                                 reply_markup=markup)
             elif stuff == "BrandList":
-                bot.sendMessage(chat_id, createBrandsList(chat_id), reply_markup=markup )
+                bot.sendMessage(chat_id, createBrandsList(chat_id), reply_markup=markup)
             elif stuff == "ModelList":
                 bot.sendMessage(chat_id, createModelsList(chat_id), reply_markup=markup)
             elif stuff == "Year":
@@ -187,18 +217,8 @@ def on_chat_message(message):
             elif stuff == "Data":
                 msg = giveData(chat_id)
                 bot.sendMessage(chat_id, msg, reply_markup=markup)
-            elif stuff in {"زیر 20 میلیون", "20 تا 50 میلیون", "50 تا 100 میلیون",
-                           "100 تا 150 میلیون", "بالای 150 میلیون"}:
-                if stuff == "زیر 20 میلیون":
-                    type = 1
-                elif stuff == "20 تا 50 میلیون":
-                    type = 2
-                elif stuff == "50 تا 100 میلیون":
-                    type = 3
-                elif stuff == "100 تا 150 میلیون":
-                    type = 4
-                elif stuff == "بالای 150 میلیون":
-                    type = 5
+            elif stuff == "PriceSearchData":
+
                 msg = givePriceSearchData(type)
                 bot.sendMessage(chat_id, msg, reply_markup=markup)
 

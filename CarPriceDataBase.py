@@ -15,7 +15,7 @@ def printAllValues():
 
     cur.execute("SELECT * FROM CarTable")
 
-    for Brand, Model, Price, Drived, MadeYear, FuelType, state, Color, Gear, URL , nationality in cur.fetchall():
+    for Brand, Model, Price, Drived, MadeYear, FuelType, state, Color, Gear, URL , nationality, date, time in cur.fetchall():
         print(
             "Brand:  " + Brand.replace(' ', '') + ", Model:  " + str(Model).replace(' ', '') + ", Drived in Km: " + str(
                 Drived) + ", Made Year: " + str(MadeYear) +
@@ -25,13 +25,14 @@ def printAllValues():
              "\nURL link: " + URL+"\n")
 
 
-def addElement(Brand, Model, Price, Drived, MadeYear, FuelType, state, Color, Gear, URL, nationality):
+def addElement(Brand, Model, Price, Drived, MadeYear, FuelType, state, Color, Gear, URL, nationality, date, time):
     global hostname, username, password, database
     conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
     cur = conn.cursor()
     sql = "Insert into CarTable (Brand, Model, Price, Drived, MadeYear, FuelType, state, Color, Gear, URL, nationality)"+\
           "\nvalues (\'" + Brand + "\',\'"+Model + "\',"+ Price +"," + Drived+ "," + MadeYear + ",\'"+FuelType + "\'"+\
-          ",\'" + state + "\'" + ",\'"+Color + "\'" + ",\'"+Gear + "\'" + ",\'" +URL + "\'" + ",\'" + nationality + "\')"
+          ",\'" + state + "\'" + ",\'"+Color + "\'" + ",\'"+Gear + "\'" + ",\'" +URL + "\'" + ",\'" + nationality + \
+          ",\'" + date + "\'" +",\'" + time + "\')"
     cur.execute(sql)
     conn.commit()
 
