@@ -10,7 +10,7 @@ markupStart = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text="جستجو ب�
 markupNext = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text="نشان دادن موارد بیشتر")],
                                            [KeyboardButton(text="بازگشت به صفحه اصلی")]])
 markupBack = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text="بازگشت به صفحه اصلی")]])
-markupBack2 = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text="مورد بیشتری وجود ندارد.\n بازگشت به صفحه اصلی")]])
+markupBack2 = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text="مورد بیشتری وجود ندارد. بازگشت به صفحه اصلی")]])
 markupPrice = ReplyKeyboardMarkup(keyboard=[
     [KeyboardButton(text="زیر 20 میلیون")], [KeyboardButton(text="20 تا 50 میلیون")],
     [KeyboardButton(text="50 تا 100 میلیون")],
@@ -70,7 +70,7 @@ def prettyTime(last_update):
 def nextMarkUp(nextMark, chat_id):
     global markupPrice, markupStart, markupDrived, markupYear, markupNationality, data, Brands, Models
     current = getCurrent(chat_id)
-    if nextMark in {"start", "MainMenu", "بازگشت به صفحه اصلی", "مورد بیشتری وجود ندارد.\n بازگشت به صفحه اصلی"}:
+    if nextMark in {"start", "MainMenu", "بازگشت به صفحه اصلی", "مورد بیشتری وجود ندارد. بازگشت به صفحه اصلی"}:
         markup = markupStart
         setCurrent(chat_id, 'MainMenu')
         resetListLevel(chat_id)
@@ -176,7 +176,6 @@ def nextMarkUp(nextMark, chat_id):
                 markup = markupBack2
             return markup, "Data"
     if current == "SearchData":
-        print("here")
         if hasNextListLevel(chat_id):
             nextListLevel(chat_id)
             markup = markupNext
@@ -190,20 +189,19 @@ def nextMarkUp(nextMark, chat_id):
 def on_chat_message(message):
     global current
     content_type, chat_type, chat_id = telepot.glance(message)
-    # print(message)
     if content_type == 'text':
         text = message['text']
         text = text.replace("/", "")
         markup, stuff = nextMarkUp(text, chat_id)
-        # print(markup)
-        # print("text: " + text)
-        # print(10 * '*')
         if text == 'start':
             setCurrent(chat_id, "MainMenu")
             markup, stuff = nextMarkUp(text, chat_id)
-            bot.sendMessage(chat_id, "سلام!", reply_markup=markup)
+            msg = "سلام. \n"
+            bot.sendMessage(chat_id, "سلام.", reply_markup=markup)
         elif markup == None and stuff == None:
-            bot.sendMessage(chat_id, "Unvalid!", reply_markup=markup)
+            msg = "پیام شما نا معتبر است. \n\n" + "در صورت تمایل برای بازگشت به صفحه اول، بر روی \" /MainMenu \" کلیک کنید. " +\
+                "\n\n\n"+ "nullatech.com"
+            bot.sendMessage(chat_id, msg, reply_markup=markup)
         elif markup != None:
             if stuff == "MainMenu":
                 bot.sendMessage(chat_id, "لطفا نوع جستجو خود را انتخاب کنید: ", reply_markup=markup)

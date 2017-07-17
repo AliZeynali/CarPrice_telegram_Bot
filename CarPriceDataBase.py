@@ -1,6 +1,5 @@
 import psycopg2,datetime
 import sys
-
 # Simple routine to run a query on a database and print the results:
 hostname = 'localhost'
 username = 'postgres'
@@ -8,24 +7,7 @@ password = '137555'
 database = 'CarPriceNullatech'
 
 
-def printAllValues():
-    global hostname, username, password, database
-    conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
-    cur = conn.cursor()
-
-    cur.execute("SELECT * FROM CarTable")
-
-    for Brand, Model, Price, Drived, MadeYear, FuelType, state, Color, Gear, URL, nationality, date, time in cur.fetchall():
-        print(
-            "Brand:  " + Brand.replace(' ', '') + ", Model:  " + str(Model).replace(' ', '') + ", Drived in Km: " + str(
-                Drived) + ", Made Year: " + str(MadeYear) +
-            ", Fuel Type: " + FuelType.replace(' ', '') + ", State: " + state.replace(' ',
-                                                                                      '') + ", Color: " + Color.replace(
-                ' ', '') + ", Gear Type: " + Gear.replace(' ', '') + ",  Nationality: " + nationality +
-            "\nURL link: " + URL + "\n")
-
-
-def addElement(Brand, Model, Price, Drived, MadeYear, FuelType, state, Color, Gear, URL, nationality):
+def addElement(Brand, Model, Price, Drived, MadeYear, FuelType, state, Color, Gear, URL, nationality, perBrand, perModel):
     global hostname, username, password, database
     conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
     cur = conn.cursor()
@@ -33,23 +15,26 @@ def addElement(Brand, Model, Price, Drived, MadeYear, FuelType, state, Color, Ge
     #current date and time will save in dataBase
     date = dateAndTime[0]
     time = dateAndTime[1][0:8]
-    sql = "Insert into CarTable (Brand, Model, Price, Drived, MadeYear, FuelType, state, Color, Gear, URL, nationality, date, time)" + \
+    sql = "Insert into CarTable (Brand, Model, Price, Drived, MadeYear, FuelType, state, Color, Gear, URL, nationality, date, time, perBrand, perModel)" + \
           "\nvalues (\'" + Brand + "\',\'" + Model + "\'," + Price + "," + Drived + "," + MadeYear + ",\'" + FuelType + "\'" + \
-          ",\'" + state + "\'" + ",\'" + Color + "\'" + ",\'" + Gear + "\'" + ",\'" + URL + "\'" + ",\'" + nationality + \
-          ",\'" + date + "\'" + ",\'" + time + "\' )"
-    cur.execute(sql)
-    conn.commit()
+          ",\'" + state + "\'" + ",\'" + Color + "\'" + ",\'" + Gear + "\'" + ",\'" + URL + "\'" + ",\'" + nationality +"\'"+ \
+          ",\'" + date + "\'" + ",\'" + time + "\'" + ",\'" + perBrand+ "\',"+ "\'" + perModel +  "\')"
+    try:
+        cur.execute(sql)
+        conn.commit()
+    except psycopg2.IntegrityError:
+        pass
 
 
 def getBrands():
     global hostname, username, password, database
     conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
     cur = conn.cursor()
-    cur.execute("Select Brand from CarTable")
+    cur.execute("Select Brand, perBrand from CarTable")
     Brands = []
-    for brand in cur.fetchall():
-        if not Brands.__contains__(clearName(str(brand))):
-            Brands.append(clearName(str(brand)))
+    for brand, perBrand in cur.fetchall():
+        if not Brands.__contains__([clearName(str(brand)),clearName(str(perBrand))]):
+            Brands.append(clearName([clearName(str(brand)),clearName(str(perBrand))]))
     return Brands
 
 
@@ -57,12 +42,12 @@ def getModels(brand):
     global hostname, username, password, database
     conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
     cur = conn.cursor()
-    sql = "Select Model from CarTable " + "Where Brand = " + "\'" + brand + "\'"
+    sql = "Select Model, perModel from CarTable " + "Where Brand = " + "\'" + brand + "\'"
     cur.execute(sql)
     Models = []
-    for model in cur.fetchall():
-        if not Models.__contains__(model):
-            Models.append(clearName(str(model)))
+    for model, perModel in cur.fetchall():
+        if not Models.__contains__([clearName(str(model)),clearName(str(perModel))]):
+            Models.append([clearName(str(model)),clearName(str(perModel))])
     return Models
 
 

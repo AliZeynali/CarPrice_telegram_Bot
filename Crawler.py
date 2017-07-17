@@ -1,7 +1,7 @@
 import sys
 from bs4 import BeautifulSoup, SoupStrainer
 from urllib.request import urlopen
-import requests, selenium
+from CarPriceDataBase import addElement
 
 
 def findElementsLinks(address):
@@ -102,11 +102,14 @@ def findMaxPage():
 
 def findDetails(url):
     open_site_url = urlopen(url).read()
-    Color = "White"
+    Color = "unknown"
     soup = BeautifulSoup(open_site_url, "html.parser")
     for item in soup.find_all("div", {"class": "inforight"}):
         text = item.text
         data = text.split("\n")
+        # Ckeck is not installment
+        if data[13] == "تعداد اقساط ":
+            return None, None, None, None, None, None, None, None, None, None, None, None, None
         Price = data[8].replace(",", "").replace(" ", "").replace("تومان", "")
         Drived = data[19].replace(" ", "").replace("کیلومتر", "").replace(",", "")
         Gear = data[25].replace(" ", "")
@@ -145,27 +148,6 @@ def splitURL(url):
             Model = BrandModel[brandLen + 1:len(BrandModel)].replace("-", "_")
             return Brand, Model
 
-def findAllElementsLinks():
-    # file = open("Links.txt", "w")
-    # file.write("")
-    # file.close()
-    file = open("LimitedLinks.txt", "w")
-    file.write("")
-    file.close()
-    reader = open("Brands.txt", "r")
-    for line in reader:
-        # find all links
-        # findElementsLinks(line.replace("\n",""))
-
-        # find only 3 first page
-        findLimitElementsLinks(line.replace("\n", ""))
-    reader.close()
-
-    reader = open("LimitedLinks.txt", "r")
-    for line in reader:
-        PerBrand, PerModel, EnBrand, EnModel, Price, Drived, Year, Fuel, State, Color, Gear, url, Nationality = findDetails(
-            line.replace("\n", ""))
-
 
 def findBrandLists():
     site_url = 'https://bama.ir/'
@@ -195,21 +177,34 @@ def findBrandLists():
 def findNationality(Brand):
     pass  # TODO
 
-# findModelsLinks()
-# findAllElementsLinks()
+
+def crawlAllData():
+    # # file = open("Links.txt", "w")
+    # # file.write("")
+    # # file.close()
+    # file = open("LimitedLinks.txt", "w")
+    # file.write("")
+    # file.close()
+    # findBrandLists()
+    # findModelsLinks()
+    # reader = open("Brands.txt", "r")
+    # for line in reader:
+    #     # find all links
+    #     # findElementsLinks(line.replace("\n",""))
+    #
+    #     # find only 3 first page
+    #     findLimitElementsLinks(line.replace("\n", ""))
+    # reader.close()
+
+    reader = open("LimitedLinks.txt", "r")
+    for line in reader:
+        PerBrand, PerModel, EnBrand, EnModel, Price, Drived, Year, Fuel, State, Color, Gear, url, Nationality = findDetails(
+            line.replace("\n", ""))
+        if (PerBrand == None and PerModel == None and EnModel == None and EnModel == None):
+            continue
+        addElement(EnBrand,EnModel,Price,Drived,Year,Fuel,State,Color,Gear,url,Nationality, PerBrand, PerModel)
+    reader.close()
 
 
-# PerBrand, PerModel,EnBrand, EnModel,Price, Drived, Year,Fuel,State,Color,Gear,url, Nationality = findDetails("https://bama.ir/car/details-2-5245867/2005-bmw-318i-for-sale")
-# print(EnBrand)
-# print(EnModel)
-# print("Brand: "+str(PerBrand))
-# print("Model: " + str(PerModel))
-# print("Price: " +Price)
-# print("Derived: " +Drived)
-# print("year: " +Year)
-# print("Fuel: " +Fuel)
-# print("State: " + State)
-# print("Color: " +Color)
-# print("Gear: " +Gear)
-# print("URL: " +url)
-# print("Nationality: " +Nationality)
+crawlAllData()
+

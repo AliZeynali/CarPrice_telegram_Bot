@@ -19,7 +19,7 @@ def getCurrent(chat_id):
     count = cur.fetchall()
     if int(count[0][0]) == 0:
         sql = "insert into Users values ( " + str(
-            chat_id) + " , " + " \'MainMeu\'" + " , null, null, null, null, null , 0, 0, 0)"
+            chat_id) + " , " + " \'MainMeu\'" + " , null, null, null, null, null , 0, 0, 0, False)"
         cur.execute(sql)
         myConnection.commit()
         myConnection.close()
@@ -165,7 +165,7 @@ def hasNextListLevel(chatID):
     cur = myConnection.cursor()
     sql = "Select * from users Where chat_id  = " + str(chatID)
     cur.execute(sql)
-    for chatID, current, brand, model, year, drived, nationality, listLevel, pLev, priceType in cur.fetchall():
+    for chatID, current, brand, model, year, drived, nationality, listLevel, pLev, priceType, banned in cur.fetchall():
         Brand = str(brand)
         Model = str(model)
         Year = str(year)
@@ -306,7 +306,7 @@ def giveData(chatID):
     cur = myConnection.cursor()
     sql = "Select * from users Where chat_id  = " + str(chatID)
     cur.execute(sql)
-    for chatID, current, brand, model, year, drived, nationality, listLevel, pLev, priceType in cur.fetchall():
+    for chatID, current, brand, model, year, drived, nationality, listLevel, pLev, priceType, banned in cur.fetchall():
         Brand = str(brand)
         Model = str(model)
         Year = str(year)
@@ -366,8 +366,8 @@ def giveData(chatID):
     data = []
     cur.execute(sql)
 
-    for brand, model, price, drived, madeYear, fuelType, state, color, gear, URL, nationality, date, time in cur.fetchall():
-        data.append([brand, model, price, drived, madeYear, fuelType, state, color, gear, URL, nationality])
+    for brand, model, price, drived, madeYear, fuelType, state, color, gear, URL, nationality, date, time, perBrand, perModel in cur.fetchall():
+        data.append([perBrand, perModel, price, drived, madeYear, fuelType, state, color, gear, URL, nationality])
     myConnection.close()
 
     #   Send message size is limited (about 4000 characters.) so we only send last 10 items.
@@ -377,10 +377,12 @@ def giveData(chatID):
     minIndex = Level * elementInPage
     maxIndex = min((Level + 1) * elementInPage - 1, len(data) - 1)
     for car in data[minIndex:maxIndex+1]:
-        String += "برند: " + str(car[0]) + "\n" + "مدل: " + str(car[1]) + "\n" + "سال تولید: " + str(
-            car[4]) + "\n" + "قیمت: " + str(car[2]) + "\n" + "کارکرد: " + str(car[3]) + "\n" + "نوع سوخت مصرفی: " + str(
-            car[5]) + "\n" + "رنگ: " + str(
-            car[7]) + "\n" + "نوع گیربکس: " + str(car[8]) + "\n" + "استان: " + str(car[6]) + "\n" + str(
+        if car[2] == -1:
+            car[2] = "تماس بگیرید"
+        String += "برند:   " + str(car[0]) + "\n" + "مدل:   " + str(car[1]) + "\n" + "سال تولید:   " + str(
+            car[4]) + "\n" + "قیمت:   " + str(car[2]) + "\n" + "کارکرد:   " + str(car[3]) + "\n" + "نوع سوخت مصرفی:   " + str(
+            car[5]) + "\n" + "رنگ:   " + str(
+            car[7]) + "\n" + "نوع گیربکس:   " + str(car[8]) + "\n" + "استان:   " + str(car[6]) + "\n" + str(
             car[9]) + "\n" + 30 * "-" + "\n"
     if String == "خودرو هایی با مشخصات مورد نظر شما عبارت اند از:\n\n":
         return "خودرویی با مشخصات مورد نظر شما یافت نشد!" + "\n\n" + "بازگشت به صفحه اصلی: " + "/MainMenu" + "\n\n" + \
@@ -420,8 +422,8 @@ def givePriceSearchData(chatID):
 
     data = []
     cur.execute(sql)
-    for brand, model, price, drived, madeYear, fuelType, state, color, gear, URL, nationality, date, time in cur.fetchall():
-        data.append([brand, model, price, drived, madeYear, fuelType, state, color, gear, URL, nationality])
+    for brand, model, price, drived, madeYear, fuelType, state, color, gear, URL, nationality, date, time, perBrand, perModel in cur.fetchall():
+        data.append([perBrand, perModel, price, drived, madeYear, fuelType, state, color, gear, URL, nationality])
     myConnection.close()
 
     #   Send message size is limited (about 4000 characters.) so we only send last 10 items.
@@ -429,10 +431,10 @@ def givePriceSearchData(chatID):
     minIndex = Level * elementInPage
     maxIndex = min((Level + 1) * elementInPage - 1, len(data) - 1)
     for car in data[minIndex:maxIndex+1]:
-        String += "برند: " + str(car[0]) + "\n" + "مدل: " + str(car[1]) + "\n" + "سال تولید: " + str(
-            car[4]) + "\n" + "قیمت: " + str(car[2]) + "\n" + "کارکرد: " + str(car[3]) + "\n" + "نوع سوخت مصرفی: " + str(
-            car[5]) + "\n" + "رنگ: " + str(
-            car[7]) + "\n" + "نوع گیربکس: " + str(car[8]) + "\n" + "استان: " + str(car[6]) + "\n" + str(
+        String += "برند:   " + str(car[0]) + "\n" + "مدل:   " + str(car[1]) + "\n" + "سال تولید:   " + str(
+            car[4]) + "\n" + "قیمت:   " + str(car[2]) + "\n" + "کارکرد:   " + str(car[3]) + "\n" + "نوع سوخت مصرفی:   " + str(
+            car[5]) + "\n" + "رنگ:   " + str(
+            car[7]) + "\n" + "نوع گیربکس:   " + str(car[8]) + "\n" + "استان:   " + str(car[6]) + "\n" + str(
             car[9]) + "\n" + 30 * "-" + "\n"
     if String == "خودروهای در محدوده قیمت مورد نظر شما عبارت اند از:\n\n":
         return "خودرویی در محدوده قیمتی مورد نظر شما یافت نشد!" + "\n\n" + "بازگشت به صفحه اصلی: " + "/MainMenu" + "\n\n" + \
@@ -449,16 +451,16 @@ def createBrandsList(chatID):
     cur.execute(sql)
     for nationality in cur.fetchall():
         Nationality = nationality[0]
-    sql = "Select brand from CarTable Where nationality = \'" + str(Nationality) + "\'"
+    sql = "Select brand , perBrand from CarTable Where nationality = \'" + str(Nationality) + "\'"
     cur.execute(sql)
     Brands = []
-    for brand in cur.fetchall():
-        if not Brands.__contains__(clearName(str(brand))):
-            Brands.append(clearName(str(brand)))
+    for brand , perBrand in cur.fetchall():
+        if not Brands.__contains__([clearName(str(brand)),clearName(str(perBrand))]):
+            Brands.append([clearName(str(brand)),clearName(str(perBrand))])
     for brand in Brands:
-        string += "/" + str(brand) + "\n"
+        string +=  "/" + str(brand[0]) + "        " +str(brand[1]).replace("_"," ")+ "\n"
     if string == "برند مورد نظر خود را انتخاب کنید: \n \n":
-        return "برندی یافت نشد!" + "\n\n" + "بازگشت به صفحه اصلی: " + "/MainMenu" + "\n\n" + \
+        return "برندی یافت نشد!" + "\n\n" + "بازگشت به صفحه اصلی:   " + "/MainMenu" + "\n\n" + \
                "Nullatech.com"
     return string + "\n\n" + "بازگشت به صفحه اصلی: " + "/MainMenu" + "\n\n" + \
            "Nullatech.com"
@@ -474,15 +476,15 @@ def createModelsList(chatID):
     for nationality, brand in cur.fetchall():
         Nationality = nationality
         Brand = brand
-    sql = "Select model from CarTable Where nationality = \'" + Nationality + "\' and brand = \'" + Brand + "\'"
+    sql = "Select model , perModel from CarTable Where nationality = \'" + Nationality + "\' and brand = \'" + Brand + "\'"
     cur.execute(sql)
     Models = []
-    for model in cur.fetchall():
-        if not Models.__contains__(clearName(str(model))):
-            Models.append(clearName(str(model)))
+    for model, perModel in cur.fetchall():
+        if not Models.__contains__([clearName(str(model)), clearName(str(perModel))]):
+            Models.append([clearName(str(model)), clearName(str(perModel))])
 
     for model in Models:
-        string += "/" + str(model) + "\n"
+        string += "/" +str(model[0])  +  "        "+ str(model[1]).replace("_"," ")+ "\n"
     if string == "مدل خودروی مورد نظر خود را انتخاب کنید: \n \n":
         return "مدلی با این نام برند، یافت نشد!" + "\n\n" + "بازگشت به صفحه اصلی: " + "/MainMenu" + "\n\n" + \
                "Nullatech.com"
@@ -517,4 +519,3 @@ def tm1():
     return string + "\n\n" + "بازگشت به صفحه اصلی: " + "/MainMenu" + "\n\n" + \
            "Nullatech.com"
 
-#print(hasNextListLevel(63961974))
