@@ -10,6 +10,7 @@ markupStart = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text="جستجو ب�
 markupNext = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text="نشان دادن موارد بیشتر")],
                                            [KeyboardButton(text="بازگشت به صفحه اصلی")]])
 markupBack = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text="بازگشت به صفحه اصلی")]])
+markupBack2 = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text="مورد بیشتری وجود ندارد.\n بازگشت به صفحه اصلی")]])
 markupPrice = ReplyKeyboardMarkup(keyboard=[
     [KeyboardButton(text="زیر 20 میلیون")], [KeyboardButton(text="20 تا 50 میلیون")],
     [KeyboardButton(text="50 تا 100 میلیون")],
@@ -69,8 +70,7 @@ def prettyTime(last_update):
 def nextMarkUp(nextMark, chat_id):
     global markupPrice, markupStart, markupDrived, markupYear, markupNationality, data, Brands, Models
     current = getCurrent(chat_id)
-
-    if nextMark in {"start", "MainMenu", "بازگشت به صفحه اصلی"}:
+    if nextMark in {"start", "MainMenu", "بازگشت به صفحه اصلی", "مورد بیشتری وجود ندارد.\n بازگشت به صفحه اصلی"}:
         markup = markupStart
         setCurrent(chat_id, 'MainMenu')
         resetListLevel(chat_id)
@@ -79,6 +79,8 @@ def nextMarkUp(nextMark, chat_id):
         return markup, "MainMenu"
     if current in {"start", "MainMenu"}:
         update_Order(chat_id, "null", "null", "null", "null", "null")
+        resetListLevel(chat_id)
+        resetPriceSearchLevel(chat_id)
         if nextMark == "جستجو بر اساس مشخصات":
             markup = markupNationality
             setCurrent(chat_id, "nationality")
@@ -104,14 +106,15 @@ def nextMarkUp(nextMark, chat_id):
             if hasNextPriceLevel(chat_id):
                 markup = markupNext
             else:
-                markup = markupBack
+                markup = markupBack2
             setCurrent(chat_id, 'PriceSearchData')
             return markup, "PriceSearchData"
     if current == "PriceSearchData":
         if nextMark == "نشان دادن موارد بیشتر" and hasNextPriceLevel(chat_id):
             nextPriceSearchLevel(chat_id)
             markup = markupNext
-        else: markup = markupBack
+        else:
+            markup = markupBack2
         setCurrent(chat_id, 'PriceSearchData')
         return markup, "PriceSearchData"
 
@@ -169,14 +172,17 @@ def nextMarkUp(nextMark, chat_id):
             setCurrent(chat_id, "SearchData")
             if hasNextListLevel(chat_id):
                 markup = markupNext
-            else: markup = markupBack
+            else:
+                markup = markupBack2
             return markup, "Data"
-        if current == "SearchData":
-            if hasNextListLevel(chat_id):
-                nextListLevel(chat_id)
-                markup = markupNext
-            else: markup = markupBack
-            return markup, "Data"
+    if current == "SearchData":
+        print("here")
+        if hasNextListLevel(chat_id):
+            nextListLevel(chat_id)
+            markup = markupNext
+        else:
+            markup = markupBack2
+        return markup, "Data"
 
     return None, None  # if unvalid text recieved return None
 
@@ -218,8 +224,7 @@ def on_chat_message(message):
                 msg = giveData(chat_id)
                 bot.sendMessage(chat_id, msg, reply_markup=markup)
             elif stuff == "PriceSearchData":
-
-                msg = givePriceSearchData(type)
+                msg = givePriceSearchData(chat_id)
                 bot.sendMessage(chat_id, msg, reply_markup=markup)
 
 

@@ -1,4 +1,4 @@
-import psycopg2
+import psycopg2,datetime
 import sys
 
 # Simple routine to run a query on a database and print the results:
@@ -15,26 +15,31 @@ def printAllValues():
 
     cur.execute("SELECT * FROM CarTable")
 
-    for Brand, Model, Price, Drived, MadeYear, FuelType, state, Color, Gear, URL , nationality, date, time in cur.fetchall():
+    for Brand, Model, Price, Drived, MadeYear, FuelType, state, Color, Gear, URL, nationality, date, time in cur.fetchall():
         print(
             "Brand:  " + Brand.replace(' ', '') + ", Model:  " + str(Model).replace(' ', '') + ", Drived in Km: " + str(
                 Drived) + ", Made Year: " + str(MadeYear) +
             ", Fuel Type: " + FuelType.replace(' ', '') + ", State: " + state.replace(' ',
                                                                                       '') + ", Color: " + Color.replace(
-                ' ', '') + ", Gear Type: " + Gear.replace(' ', '') + ",  Nationality: "+ nationality +
-             "\nURL link: " + URL+"\n")
+                ' ', '') + ", Gear Type: " + Gear.replace(' ', '') + ",  Nationality: " + nationality +
+            "\nURL link: " + URL + "\n")
 
 
-def addElement(Brand, Model, Price, Drived, MadeYear, FuelType, state, Color, Gear, URL, nationality, date, time):
+def addElement(Brand, Model, Price, Drived, MadeYear, FuelType, state, Color, Gear, URL, nationality):
     global hostname, username, password, database
     conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
     cur = conn.cursor()
-    sql = "Insert into CarTable (Brand, Model, Price, Drived, MadeYear, FuelType, state, Color, Gear, URL, nationality)"+\
-          "\nvalues (\'" + Brand + "\',\'"+Model + "\',"+ Price +"," + Drived+ "," + MadeYear + ",\'"+FuelType + "\'"+\
-          ",\'" + state + "\'" + ",\'"+Color + "\'" + ",\'"+Gear + "\'" + ",\'" +URL + "\'" + ",\'" + nationality + \
-          ",\'" + date + "\'" +",\'" + time + "\')"
+    dateAndTime = str(datetime.datetime.now()).split(" ")
+    #current date and time will save in dataBase
+    date = dateAndTime[0]
+    time = dateAndTime[1][0:8]
+    sql = "Insert into CarTable (Brand, Model, Price, Drived, MadeYear, FuelType, state, Color, Gear, URL, nationality, date, time)" + \
+          "\nvalues (\'" + Brand + "\',\'" + Model + "\'," + Price + "," + Drived + "," + MadeYear + ",\'" + FuelType + "\'" + \
+          ",\'" + state + "\'" + ",\'" + Color + "\'" + ",\'" + Gear + "\'" + ",\'" + URL + "\'" + ",\'" + nationality + \
+          ",\'" + date + "\'" + ",\'" + time + "\' )"
     cur.execute(sql)
     conn.commit()
+
 
 def getBrands():
     global hostname, username, password, database
@@ -52,29 +57,13 @@ def getModels(brand):
     global hostname, username, password, database
     conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
     cur = conn.cursor()
-    sql = "Select Model from CarTable " + "Where Brand = " +"\'" +  brand + "\'"
+    sql = "Select Model from CarTable " + "Where Brand = " + "\'" + brand + "\'"
     cur.execute(sql)
-    Models =[]
+    Models = []
     for model in cur.fetchall():
         if not Models.__contains__(model):
             Models.append(clearName(str(model)))
     return Models
-
-# def searchByPrice(minPrice, maxPrice):
-#     global hostname, username, password, database
-#     conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
-#     #if maxPrice is -1, it means that maxPrice doesn't matter.
-#     cur = conn.cursor()
-#     if maxPrice != -1:
-#         sql = "Select * from CarTable "+ "Where Price between "+ minPrice +" AND " +  maxPrice
-#     else:
-#         sql = "Select * from CarTable " + "Where Price >= " +  minPrice
-#     cur.execute(sql)
-#     data = []
-#     for Brand, Model, Price, Drived, MadeYear, FuelType, state, Color, Gear, URL, nationality in cur.fetchall():
-#         data.append([Brand, Model, Price, Drived, MadeYear, FuelType, state, Color, Gear, URL, nationality])
-#     return data
-
 
 
 def clearName(str):
@@ -84,13 +73,14 @@ def clearName(str):
     # doQuery( myConnection )
     # myConnection.close()
 
+
 def temp(conn):
     cur = conn.cursor()
-    sql = "select * from CarTable" +" Where Brand Like \'پ%\'"
+    sql = "select * from CarTable" + " Where Brand Like \'پ%\'"
     cur.execute(sql)
-    for Brand, Model, Price, Drived, MadeYear, FuelType, state, Color, Gear, URL , nationality in cur.fetchall():
+    for Brand, Model, Price, Drived, MadeYear, FuelType, state, Color, Gear, URL, nationality in cur.fetchall():
         print(
-            "Brand:  " + Brand+ ", Model:  " + str(Model) + ", Drived in Km: " + str(
+            "Brand:  " + Brand + ", Model:  " + str(Model) + ", Drived in Km: " + str(
                 Drived) + ", Made Year: " + str(MadeYear) +
-            ", Fuel Type: " + FuelType + ", State: " + state + ", Color: " + Color + ", Gear Type: " + Gear + ",  Nationality: "+ nationality +
-             "\nURL link: " + URL+"\n")
+            ", Fuel Type: " + FuelType + ", State: " + state + ", Color: " + Color + ", Gear Type: " + Gear + ",  Nationality: " + nationality +
+            "\nURL link: " + URL + "\n")

@@ -19,7 +19,7 @@ def getCurrent(chat_id):
     count = cur.fetchall()
     if int(count[0][0]) == 0:
         sql = "insert into Users values ( " + str(
-            chat_id) + " , " + " \'MainMeu\'" + " , null, null, null, null, null , 0, 0)"
+            chat_id) + " , " + " \'MainMeu\'" + " , null, null, null, null, null , 0, 0, 0)"
         cur.execute(sql)
         myConnection.commit()
         myConnection.close()
@@ -165,7 +165,7 @@ def hasNextListLevel(chatID):
     cur = myConnection.cursor()
     sql = "Select * from users Where chat_id  = " + str(chatID)
     cur.execute(sql)
-    for chatID, current, brand, model, year, drived, nationality, listLevel, pLev in cur.fetchall():
+    for chatID, current, brand, model, year, drived, nationality, listLevel, pLev, priceType in cur.fetchall():
         Brand = str(brand)
         Model = str(model)
         Year = str(year)
@@ -215,13 +215,13 @@ def hasNextListLevel(chatID):
               " and " + str(tillYear1) + " or madeyear between " + str(fromYear2) + " and " + str(
             tillYear2) + ")  and drived between " + str(leastDrived) + \
               " and " + str(MaxDrived) + " and nationality = \'" + str(
-            Nationality) + "\'" + " order by date desc, time desc"
+            Nationality) + "\'"
     elif Drived == "6":
         sql = "Select count(*) from CarTable Where brand = \'" + Brand + "\' and model = \'" + Model + "\' and (madeyear between " + str(
             fromYear1) + \
               " and " + str(tillYear1) + " or madeyear between " + str(fromYear2) + " and " + str(
             tillYear2) + ")  and drived >= 120000 " + " and nationality = \'" + str(
-            Nationality) + "\'" + " order by date desc, time desc"
+            Nationality) + "\'"
     cur.execute(sql)
     num = cur.fetchall()[0][0]
     myConnection.close()
@@ -234,10 +234,11 @@ def hasNextPriceLevel(chatID):
     global hostname, username, password, database
     myConnection = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
     cur = myConnection.cursor()
-    sql = "Select priceSearchLevel from users Where chat_id  = " + str(chatID)
+    sql = "Select priceSearchLevel, priceType from users Where chat_id  = " + str(chatID)
     cur.execute(sql)
-    for lev in cur.fetchall():
+    for lev , Type in cur.fetchall():
         Level = lev
+        type= int(Type)
     if type == 1:
         minPrice = 0
         maxPrice = 20000000
@@ -253,10 +254,10 @@ def hasNextPriceLevel(chatID):
 
     if type != 5:
         sql = "Select count(*) from CarTable Where price  BETWEEN " + str(minPrice) + " and " + str(
-            maxPrice) + " order by date desc, time desc"
+            maxPrice)
     elif type == 5:
-        sql = "Select count(*) from CarTable Where price >= 150000000" + " order by date desc, time desc"
-
+        sql = "Select count(*) from CarTable Where price >= 150000000"
+    cur.execute(sql)
     num = cur.fetchall()[0][0]
     if int(num)> (Level+1)*10:
         return True
@@ -305,7 +306,7 @@ def giveData(chatID):
     cur = myConnection.cursor()
     sql = "Select * from users Where chat_id  = " + str(chatID)
     cur.execute(sql)
-    for chatID, current, brand, model, year, drived, nationality, listLevel, pLev in cur.fetchall():
+    for chatID, current, brand, model, year, drived, nationality, listLevel, pLev, priceType in cur.fetchall():
         Brand = str(brand)
         Model = str(model)
         Year = str(year)
@@ -365,7 +366,7 @@ def giveData(chatID):
     data = []
     cur.execute(sql)
 
-    for brand, model, price, drived, madeYear, fuelType, state, color, gear, URL, nationality in cur.fetchall():
+    for brand, model, price, drived, madeYear, fuelType, state, color, gear, URL, nationality, date, time in cur.fetchall():
         data.append([brand, model, price, drived, madeYear, fuelType, state, color, gear, URL, nationality])
     myConnection.close()
 
@@ -375,7 +376,7 @@ def giveData(chatID):
     elementInPage = 10
     minIndex = Level * elementInPage
     maxIndex = min((Level + 1) * elementInPage - 1, len(data) - 1)
-    for car in data[minIndex:maxIndex]:
+    for car in data[minIndex:maxIndex+1]:
         String += "برند: " + str(car[0]) + "\n" + "مدل: " + str(car[1]) + "\n" + "سال تولید: " + str(
             car[4]) + "\n" + "قیمت: " + str(car[2]) + "\n" + "کارکرد: " + str(car[3]) + "\n" + "نوع سوخت مصرفی: " + str(
             car[5]) + "\n" + "رنگ: " + str(
@@ -389,7 +390,7 @@ def giveData(chatID):
 
 
 def givePriceSearchData(chatID):
-    String = "خودرو های در محدوده قیمت مورد نظر شما عبارت اند از:\n\n"
+    String = "خودروهای در محدوده قیمت مورد نظر شما عبارت اند از:\n\n"
     global hostname, username, password, database
     myConnection = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
     cur = myConnection.cursor()
@@ -427,13 +428,13 @@ def givePriceSearchData(chatID):
     elementInPage = 10
     minIndex = Level * elementInPage
     maxIndex = min((Level + 1) * elementInPage - 1, len(data) - 1)
-    for car in data[minIndex:maxIndex]:
+    for car in data[minIndex:maxIndex+1]:
         String += "برند: " + str(car[0]) + "\n" + "مدل: " + str(car[1]) + "\n" + "سال تولید: " + str(
             car[4]) + "\n" + "قیمت: " + str(car[2]) + "\n" + "کارکرد: " + str(car[3]) + "\n" + "نوع سوخت مصرفی: " + str(
             car[5]) + "\n" + "رنگ: " + str(
             car[7]) + "\n" + "نوع گیربکس: " + str(car[8]) + "\n" + "استان: " + str(car[6]) + "\n" + str(
             car[9]) + "\n" + 30 * "-" + "\n"
-    if String == "خودرو های در محدوده قیمت مورد نظر شما عبارت اند از:\n\n":
+    if String == "خودروهای در محدوده قیمت مورد نظر شما عبارت اند از:\n\n":
         return "خودرویی در محدوده قیمتی مورد نظر شما یافت نشد!" + "\n\n" + "بازگشت به صفحه اصلی: " + "/MainMenu" + "\n\n" + \
                "Nullatech.com"
     return String + "\n\n" + "بازگشت به صفحه اصلی: " + "/MainMenu" + "\n\n" + \
@@ -516,4 +517,4 @@ def tm1():
     return string + "\n\n" + "بازگشت به صفحه اصلی: " + "/MainMenu" + "\n\n" + \
            "Nullatech.com"
 
-print(givePriceSearchData(1))
+#print(hasNextListLevel(63961974))
