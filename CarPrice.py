@@ -19,13 +19,13 @@ markupPrice = ReplyKeyboardMarkup(keyboard=[
 ])
 markupNationality = ReplyKeyboardMarkup(keyboard=[
     [KeyboardButton(text="ایرانی")], [KeyboardButton(text="خارجی")]])
-markupYear = ReplyKeyboardMarkup(keyboard=[
+markupYear = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text="اهمیت ندارد")],
     [KeyboardButton(text="جدید تر از 1396 (2017)")], [KeyboardButton(text="از 1392 تا 1395 (2013 - 2016)")],
     [KeyboardButton(text="از 1388 تا 1391 (2009 - 2012)")],
     [KeyboardButton(text="قبل از 1388 (2009)")]
     , [KeyboardButton(text="بازگشت به صفحه اصلی")]
 ])
-markupDrived = ReplyKeyboardMarkup(keyboard=[
+markupDrived = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text="اهمیت ندارد")],
     [KeyboardButton(text="زیر 2000")], [KeyboardButton(text="2000 تا 10000")],
     [KeyboardButton(text="10000 تا 50000")],
     [KeyboardButton(text="50000 تا 80000")], [KeyboardButton(text="80000 تا 120000")],
@@ -91,7 +91,7 @@ def nextMarkUp(nextMark, chat_id):
             return markup, "Price"
     if current == "Price":
         if nextMark in {"زیر 20 میلیون", "20 تا 50 میلیون", "50 تا 100 میلیون",
-                        "100 تا 150 میلیون", "بالای 150 میلیون"}:
+                        "100 تا 150 میلیون", "بالای 150 میلیون" , "اهمیت ندارد"}:
             if nextMark == "زیر 20 میلیون":
                 type = 1
             elif nextMark == "20 تا 50 میلیون":
@@ -140,7 +140,7 @@ def nextMarkUp(nextMark, chat_id):
             return markup, "Year"
     if current == "Year":
         if nextMark in {"جدید تر از 1396 (2017)", "از 1392 تا 1395 (2013 - 2016)", "از 1388 تا 1391 (2009 - 2012)",
-                        "قبل از 1388 (2009)"}:
+                        "قبل از 1388 (2009)" ,"اهمیت ندارد" }:
             if nextMark == "جدید تر از 1396 (2017)":
                 year = 1
             elif nextMark == "از 1392 تا 1395 (2013 - 2016)":
@@ -149,13 +149,15 @@ def nextMarkUp(nextMark, chat_id):
                 year = 3
             elif nextMark == "قبل از 1388 (2009)":
                 year = 4
+            elif nextMark == "اهمیت ندارد":
+                year = 5
             update_Order(chat_id, -1, -1, str(year), -1, -1)
             markup = markupDrived
             setCurrent(chat_id, "Drived")
             return markup, "Drived"
     if current == "Drived":
         if nextMark in {"زیر 2000", "2000 تا 10000", "10000 تا 50000", "50000 تا 80000", "80000 تا 120000",
-                        "بالای 120000"}:
+                        "بالای 120000", "اهمیت ندارد"}:
             if nextMark == "زیر 2000":
                 Drived = 1
             elif nextMark == "2000 تا 10000":
@@ -168,6 +170,8 @@ def nextMarkUp(nextMark, chat_id):
                 Drived = 5
             elif nextMark == "بالای 120000":
                 Drived = 6
+            elif nextMark == "اهمیت ندارد":
+                Drived = 7
             update_Order(chat_id, -1, -1, -1, Drived, -1)
             setCurrent(chat_id, "SearchData")
             if hasNextListLevel(chat_id):
@@ -176,12 +180,13 @@ def nextMarkUp(nextMark, chat_id):
                 markup = markupBack2
             return markup, "Data"
     if current == "SearchData":
-        if hasNextListLevel(chat_id):
-            nextListLevel(chat_id)
-            markup = markupNext
-        else:
-            markup = markupBack2
-        return markup, "Data"
+        if nextMark == "نشان دادن موارد بیشتر":
+            if hasNextListLevel(chat_id):
+                nextListLevel(chat_id)
+                markup = markupNext
+            else:
+                markup = markupBack2
+            return markup, "Data"
 
     return None, None  # if unvalid text recieved return None
 

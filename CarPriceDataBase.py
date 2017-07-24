@@ -22,7 +22,7 @@ def addElement(Brand, Model, Price, Drived, MadeYear, FuelType, state, Color, Ge
     try:
         cur.execute(sql)
         conn.commit()
-    except psycopg2.IntegrityError:
+    except (psycopg2.IntegrityError , psycopg2.DataError, psycopg2.Error) as err:
         pass
 
 

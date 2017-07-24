@@ -192,6 +192,11 @@ def hasNextListLevel(chatID):
         tillYear1 = 1388
         fromYear2 = 1900
         tillYear2 = 2009
+    elif Year == "5":
+        fromYear1 = -1
+        tillYear1 = 10000
+        fromYear2 = -1
+        tillYear2 = 10000
 
     if Drived == "1":
         leastDrived = 0
@@ -208,6 +213,9 @@ def hasNextListLevel(chatID):
     elif Drived == "5":
         leastDrived = 80000
         MaxDrived = 120000
+    elif Drived == "7":
+        leastDrived = 0
+        MaxDrived = 100000000
     if Drived != "6":
         sql = "Select count(*) from CarTable Where brand = \'" + str(Brand) + "\' and model = \'" + str(
             Model) + "\' and (madeyear between " + str(
@@ -333,6 +341,11 @@ def giveData(chatID):
         tillYear1 = 1388
         fromYear2 = 1900
         tillYear2 = 2009
+    elif Year == "5":
+        fromYear1 = -1
+        tillYear1 = 10000
+        fromYear2 = -1
+        tillYear2 = 10000
 
     if Drived == "1":
         leastDrived = 0
@@ -349,6 +362,9 @@ def giveData(chatID):
     elif Drived == "5":
         leastDrived = 80000
         MaxDrived = 120000
+    elif Drived == "7":
+        leastDrived = 0
+        MaxDrived = 100000000
     if Drived != "6":
         sql = "Select * from CarTable Where brand = \'" + str(Brand) + "\' and model = \'" + str(
             Model) + "\' and (madeyear between " + str(
@@ -380,7 +396,7 @@ def giveData(chatID):
         if car[2] == -1:
             car[2] = "تماس بگیرید"
         String += "برند:   " + str(car[0]) + "\n" + "مدل:   " + str(car[1]) + "\n" + "سال تولید:   " + str(
-            car[4]) + "\n" + "قیمت:   " + str(car[2]) + "\n" + "کارکرد:   " + str(car[3]) + "\n" + "نوع سوخت مصرفی:   " + str(
+            car[4]) + "\n" + "قیمت:   " + str(car[2]) + "   تومان\n" + "کارکرد:   " + str(car[3]) + "   کیلومتر\n" + "نوع سوخت مصرفی:   " + str(
             car[5]) + "\n" + "رنگ:   " + str(
             car[7]) + "\n" + "نوع گیربکس:   " + str(car[8]) + "\n" + "استان:   " + str(car[6]) + "\n" + str(
             car[9]) + "\n" + 30 * "-" + "\n"
@@ -458,7 +474,7 @@ def createBrandsList(chatID):
         if not Brands.__contains__([clearName(str(brand)),clearName(str(perBrand))]):
             Brands.append([clearName(str(brand)),clearName(str(perBrand))])
     for brand in Brands:
-        string +=  "/" + str(brand[0]) + "        " +str(brand[1]).replace("_"," ")+ "\n"
+        string +=  "/" + str(brand[0]) + "        " +str(brand[1]).replace("_"," ")+ "\n\n"
     if string == "برند مورد نظر خود را انتخاب کنید: \n \n":
         return "برندی یافت نشد!" + "\n\n" + "بازگشت به صفحه اصلی:   " + "/MainMenu" + "\n\n" + \
                "Nullatech.com"
@@ -484,7 +500,7 @@ def createModelsList(chatID):
             Models.append([clearName(str(model)), clearName(str(perModel))])
 
     for model in Models:
-        string += "/" +str(model[0])  +  "        "+ str(model[1]).replace("_"," ")+ "\n"
+        string += "/" +str(model[0])  +  "        "+ str(model[1]).replace("_"," ")+ "\n\n"
     if string == "مدل خودروی مورد نظر خود را انتخاب کنید: \n \n":
         return "مدلی با این نام برند، یافت نشد!" + "\n\n" + "بازگشت به صفحه اصلی: " + "/MainMenu" + "\n\n" + \
                "Nullatech.com"

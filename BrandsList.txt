@@ -1,3 +1,4 @@
+aria
 alfa-romeo
 audi
 opel
@@ -65,9 +66,9 @@ lamborghini
 lexus
 land-rover
 landmark
-lobo
 lotus
 lifan
+lincoln
 maserati
 mazda
 maclaren
