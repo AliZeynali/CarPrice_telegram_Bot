@@ -4,6 +4,7 @@ import telepot
 from telepot.namedtuple import ReplyKeyboardMarkup, KeyboardButton
 from CarPriceDataBase import *
 from UsersTable import *
+from Crawler import CrawlThread
 
 markupStart = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text="جستجو بر اساس مشخصات")],
                                             [KeyboardButton(text="جستجو بر اساس قیمت")]])
@@ -230,10 +231,12 @@ def on_chat_message(message):
                 msg = givePriceSearchData(chat_id)
                 bot.sendMessage(chat_id, msg, reply_markup=markup)
 
+if __name__ == "__main__":
+    token = "429542432:AAGbrN-i4mQ917LYyLCGXg4eSoqqNiLaATw"
+    bot = telepot.Bot(token)
+    bot.message_loop({'chat': on_chat_message})
 
-token = "429542432:AAGbrN-i4mQ917LYyLCGXg4eSoqqNiLaATw"
-bot = telepot.Bot(token)
-bot.message_loop({'chat': on_chat_message})
-
-while True:
-    time.sleep(10)
+    crawler = CrawlThread()
+    crawler.start()
+    while True:
+        time.sleep(5)

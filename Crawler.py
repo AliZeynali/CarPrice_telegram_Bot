@@ -1,10 +1,11 @@
 import sys
 import urllib
-
+import threading
 from bs4 import BeautifulSoup, SoupStrainer
 from urllib.request import urlopen
-from CarPriceDataBase import addElement
+from CarPriceDataBase import addElement,getFirstDate,removeLastEelements
 import datetime
+import time
 
 
 def findElementsLinks(address):
@@ -203,9 +204,9 @@ def findNationality(Brand):
     else:
         return "F"
 
-
 def crawlAllData():
     t1 = datetime.datetime.now()
+    firstDate = getFirstDate()
     # # file = open("Links.txt", "w")
     # # file.write("")
     # # file.close()
@@ -232,9 +233,22 @@ def crawlAllData():
         addElement(EnBrand, EnModel, Price, Drived, Year, Fuel, State, Color, Gear, url, Nationality, PerBrand,
                    PerModel)
     reader.close()
+    removeLastEelements(firstDate)
     t2 = datetime.datetime.now()
     print("Getting Bama's Data: " + str(t2 - t1) + "   Seconds.")
 
+class CrawlThread(threading.Thread):
+    def run(self):
+        while True:
+            time.sleep(300)
+            x = datetime.datetime.now()
+            splitedDateTime = str(x).split(" ")
+            timeNow = splitedDateTime[1][0:8]
+            nowHour = timeNow[0:2]
+            if nowHour == "01":
+              crawlAllData()
+
+
 
 #crawlAllData()
-findDetails("https://bama.ir/car/details-3-5280276/1396-saina-ex-for-sale")
+#findDetails("https://bama.ir/car/details-3-5280276/1396-saina-ex-for-sale")

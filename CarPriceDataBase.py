@@ -58,14 +58,24 @@ def clearName(str):
     # doQuery( myConnection )
     # myConnection.close()
 
-
-def temp(conn):
+def getFirstDate():
+    global hostname, username, password, database
+    conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
     cur = conn.cursor()
-    sql = "select * from CarTable" + " Where Brand Like \'پ%\'"
+    sql = "select distinct date from carTable where date <= all (select date from carTable) "
     cur.execute(sql)
-    for Brand, Model, Price, Drived, MadeYear, FuelType, state, Color, Gear, URL, nationality in cur.fetchall():
-        print(
-            "Brand:  " + Brand + ", Model:  " + str(Model) + ", Drived in Km: " + str(
-                Drived) + ", Made Year: " + str(MadeYear) +
-            ", Fuel Type: " + FuelType + ", State: " + state + ", Color: " + Color + ", Gear Type: " + Gear + ",  Nationality: " + nationality +
-            "\nURL link: " + URL + "\n")
+    Date = ""
+    for date in cur.fetchall():
+        Date = date[0]
+    return Date
+
+def removeLastEelements(Date):
+    global hostname, username, password, database
+    conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
+    cur = conn.cursor()
+    sql = "delete  from carTable where date <= " + str(Date)
+    try:
+        cur.execute(sql)
+        conn.commit()
+    except (psycopg2.IntegrityError , psycopg2.DataError, psycopg2.Error) as err:
+        pass
